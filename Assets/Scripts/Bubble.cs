@@ -39,7 +39,12 @@ public class Bubble : MonoBehaviour
     {
         if (other.CompareTag("BurstZone")) // Check if the bubble enters the BurstZone trigger zone
         {
-            isInBurstZone = true;         
+            isInBurstZone = true;
+        }
+        else if (other.CompareTag("Clearer"))
+        {
+            Destroy(this.gameObject);
+            // TODO: add info to count this as a negative
         }
     }
     private void OnTriggerExit(Collider other)

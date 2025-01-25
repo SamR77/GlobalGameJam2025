@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f64a07db8105d894d84223e1b0b6bd79, type: 2}
+  - {fileID: -876546973899608171, guid: 73ba6a82e4c90a44cab7d6d67ea881de, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,8 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  triggerCenter: {fileID: 0}
-  PerfectMinPercent: 10
-  GoodMinPercent: 50
-  EarlyLateMinPercent: 100
-  isInsideTrigger: 0
+  isInBurstZone: 0
+  bubbleBurstZone: {fileID: 0}
