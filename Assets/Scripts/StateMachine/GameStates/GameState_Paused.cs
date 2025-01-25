@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Sam Robichaud 
-// NSCC Truro 2024
+// NSCC Truro 2025
 // This work is licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 public class GameState_Paused : IGameState
@@ -12,7 +12,7 @@ public class GameState_Paused : IGameState
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
-        //gameStateManager._uIManager.UIPaused();
+        GameManager.Instance.uIManager.UIPaused();
         //gameStateManager._cameraManager.isCameraMoveEnabled = false;
     }
 
@@ -20,13 +20,6 @@ public class GameState_Paused : IGameState
 
     public void UpdateState(GameStateManager gameStateManager)
     {
-        /*
-        // Pressing ESC key will unpause the game, Switch to last state stored
-        if (gameStateManager._inputManager.isPauseKeyPressed)
-        {
-            gameStateManager.UnPause();
-        }
-        */
         
     }
 

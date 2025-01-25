@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Sam Robichaud 
-// NSCC Truro 2024
+// NSCC Truro 2025
 // This work is licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 public class GameState_MainMenu : IGameState
@@ -13,10 +13,10 @@ public class GameState_MainMenu : IGameState
 
         // May want to consider locking the cursor to the center of the screen
 
-        ///gameStateManager._uIManager.UIMainMenu();
-        //gameStateManager._playerManager.player.SetActive(false);
+        GameManager.Instance.uIManager.UIMainMenu();
+        //GameManager.Instance.playerManager.player.SetActive(false);
+
         
-        //gameStateManager._cameraManager.isCameraMoveEnabled = false;
 
         
     }

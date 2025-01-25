@@ -29,7 +29,10 @@ public class LevelManager : MonoBehaviour
     {
         nextScene = SceneManager.GetActiveScene().buildIndex + 1;
         LoadScene(nextScene);
-        //_gameStateManager.SwitchToState(_gameStateManager.gameState_GamePlay);
+        GameManager.Instance.gameStateManager.SwitchToState(GameManager.Instance.gameStateManager.gameState_GamePlay);
+        
+        
+
     }
 
 

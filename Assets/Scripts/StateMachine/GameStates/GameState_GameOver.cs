@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Sam Robichaud 
-// NSCC Truro 2024
+// NSCC Truro 2025
 // This work is licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 public class GameState_GameOver : IGameState

@@ -14,7 +14,7 @@ public class GameState_Options : IGameState
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
-        //gameStateManager._uIManager.UIOptions();
+        GameManager.Instance.uIManager.UIOptions();
         //gameStateManager._cameraManager.isCameraMoveEnabled = false;
     }
 

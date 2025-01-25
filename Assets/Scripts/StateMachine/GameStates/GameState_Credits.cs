@@ -14,7 +14,7 @@ public class GameState_Credits : IGameState
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
-        //gameStateManager._uIManager.UICredits();
+        GameManager.Instance.uIManager.UICredits();
         //gameStateManager._cameraManager.isCameraMoveEnabled = false;        
     }
 

@@ -15,10 +15,10 @@ public class GameState_GameInit : IGameState
         Cursor.visible = false;
 
         // Enable all UI Panels, activates them so any scripts can get references to them if needed, each other state will disable them as needed
-        //gameStateManager._uIManager.EnableAllUIPanels();
+        GameManager.Instance.uIManager.EnableAllUIPanels();
 
         // Switch to MainMenu state
-        //gameStateManager.SwitchToState(new GameState_MainMenu());
+        GameManager.Instance.gameStateManager.SwitchToState(new GameState_MainMenu());
 
 
     }
@@ -31,7 +31,7 @@ public class GameState_GameInit : IGameState
     public void ExitState(GameStateManager gameStateManager)
     {
         // Disable all UI Panels
-        //gameStateManager._uIManager.DisableAllUIPanels();
+        GameManager.Instance.uIManager.DisableAllUIPanels();
     }
 
 }

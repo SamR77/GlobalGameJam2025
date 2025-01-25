@@ -20,17 +20,10 @@ public class UIManager : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject optionsMenuUI;
     public GameObject creditsMenuUI;
-    public GameObject LoadingScreenUI;
 
     [Header("Gameplay UI Elements")]
     // Gameplay Specific UI Elements
     public Text LevelCount;
-
-    [Header("Loading Screen UI Elements")]
-    public CanvasGroup loadingScreenCanvasGroup;
-    public Image loadingBar;
-    public TextMeshProUGUI loadingText;
-    public float fadeTime = 0.5f;
 
     public void UpdateLevelCount(int count)
     {
@@ -79,12 +72,6 @@ public class UIManager : MonoBehaviour
         creditsMenuUI.SetActive(true);
     }
 
-    public void UILoadingScreen(GameObject targetPanel)
-    {
-        StartCoroutine(LoadingUIFadeIN());
-        StartCoroutine(DelayedSwitchUIPanel(fadeTime, targetPanel));
-    }
-
     public void DisableAllUIPanels()
     {
         mainMenuUI.SetActive(false);
@@ -93,7 +80,6 @@ public class UIManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
         creditsMenuUI.SetActive(false);
-        LoadingScreenUI.SetActive(false);
     }
 
     public void EnableAllUIPanels()
@@ -104,70 +90,9 @@ public class UIManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         optionsMenuUI.SetActive(true);
         creditsMenuUI.SetActive(true);
-        LoadingScreenUI.SetActive(true);
     }
 
-    private IEnumerator LoadingUIFadeOut()
-    {
-        Debug.Log("Starting Fadeout");
+   
 
-        float timer = 0;
 
-        while (timer < fadeTime)
-        {
-            loadingScreenCanvasGroup.alpha = Mathf.Lerp(1, 0, timer / fadeTime);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        loadingScreenCanvasGroup.alpha = 0;
-        LoadingScreenUI.SetActive(false);
-        loadingBar.fillAmount = 0;
-
-        Debug.Log("Ending Fadeout");
-    }
-
-    private IEnumerator LoadingUIFadeIN()
-    {
-        Debug.Log("Starting Fadein");
-        float timer = 0;
-        LoadingScreenUI.SetActive(true);
-
-        while (timer < fadeTime)
-        {
-            loadingScreenCanvasGroup.alpha = Mathf.Lerp(0, 1, timer / fadeTime);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        loadingScreenCanvasGroup.alpha = 1;
-
-        Debug.Log("Ending Fadein");
-        //StartCoroutine(LoadingBarProgress());
-    }
-
-    private IEnumerator LoadingBarProgress()
-    {
-        Debug.Log("Starting Progress Bar");
-        while (levelManager.scenesToLoad.Count <= 0)
-        {
-            //waiting for loading to begin
-            yield return null;
-        }
-        while (levelManager.scenesToLoad.Count > 0)
-        {
-            loadingBar.fillAmount = levelManager.GetLoadingProgress();
-            yield return null;
-        }
-        yield return new WaitForEndOfFrame();
-        Debug.Log("Ending Progress Bar");
-        StartCoroutine(LoadingUIFadeOut());
-    }
-
-    private IEnumerator DelayedSwitchUIPanel(float time, GameObject uiPanel)
-    {
-        yield return new WaitForSeconds(time);
-        DisableAllUIPanels();
-        uiPanel.SetActive(true);
-    }
 }
