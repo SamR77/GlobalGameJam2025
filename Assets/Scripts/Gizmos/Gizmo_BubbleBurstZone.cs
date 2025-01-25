@@ -11,11 +11,4 @@ public class Gizmo_BubbleBurstZone : MonoBehaviour
         Gizmos.color = new Color(0, 1, 0, 0.5f);
         Gizmos.DrawCube(transform.position, GetComponent<BoxCollider>().size);
     }
-
-
-
-
-
-
-
 }
