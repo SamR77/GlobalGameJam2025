@@ -92,15 +92,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             ""id"": ""de21283a-1f45-4461-998a-ed0f9d1fe22d"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""fdfe8fb5-ca59-479b-ab91-619c9d16dde9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""58c06245-2e23-43ac-9e40-edd93fbe6a79"",
@@ -117,64 +108,45 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""17a5cdac-614c-47a9-93bb-f8f14bb3973a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""56d4028e-1b34-4790-b032-5afe5917e7e9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cff9dfb-fdcd-4d3b-8280-3da3d0322b6e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ffb3f97-51d3-4777-80c4-73b80f97c8c1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""e9b5aedb-3ed6-4bd8-9cc5-ed9cba3e5179"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""9ad7d09d-62b1-4ebb-b8f7-be71977b0014"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""2f05e4c1-29ed-479d-af89-3c03b6a4d126"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""cf33ecb4-cfaf-4011-aef3-3a78652ed480"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""0b9a850a-00c3-42f2-9a4b-fbb5ea27388f"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": """",
                     ""id"": ""b7a2ba9f-be67-469d-aa26-f0b412e18e5b"",
@@ -196,6 +168,50 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68c1b70d-abf7-4b67-b69a-33a87985dc0f"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab720e39-e524-4750-a5bd-d88612b7ddc7"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""491864f5-d879-4b57-a262-4b21cce9cdf8"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3c59b07-5e90-46a5-9879-f1a6aa6f9226"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -204,9 +220,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_WKey = m_Player.FindAction("WKey", throwIfNotFound: true);
+        m_Player_AKey = m_Player.FindAction("AKey", throwIfNotFound: true);
+        m_Player_SKey = m_Player.FindAction("SKey", throwIfNotFound: true);
+        m_Player_DKey = m_Player.FindAction("DKey", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -287,9 +306,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_WKey;
+    private readonly InputAction m_Player_AKey;
+    private readonly InputAction m_Player_SKey;
+    private readonly InputAction m_Player_DKey;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -302,10 +324,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// </summary>
         public PlayerActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Player/Move".
-        /// </summary>
-        public InputAction @Move => m_Wrapper.m_Player_Move;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
@@ -313,6 +331,22 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/WKey".
+        /// </summary>
+        public InputAction @WKey => m_Wrapper.m_Player_WKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AKey".
+        /// </summary>
+        public InputAction @AKey => m_Wrapper.m_Player_AKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SKey".
+        /// </summary>
+        public InputAction @SKey => m_Wrapper.m_Player_SKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/DKey".
+        /// </summary>
+        public InputAction @DKey => m_Wrapper.m_Player_DKey;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -339,15 +373,24 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @WKey.started += instance.OnWKey;
+            @WKey.performed += instance.OnWKey;
+            @WKey.canceled += instance.OnWKey;
+            @AKey.started += instance.OnAKey;
+            @AKey.performed += instance.OnAKey;
+            @AKey.canceled += instance.OnAKey;
+            @SKey.started += instance.OnSKey;
+            @SKey.performed += instance.OnSKey;
+            @SKey.canceled += instance.OnSKey;
+            @DKey.started += instance.OnDKey;
+            @DKey.performed += instance.OnDKey;
+            @DKey.canceled += instance.OnDKey;
         }
 
         /// <summary>
@@ -359,15 +402,24 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerActions" />
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @WKey.started -= instance.OnWKey;
+            @WKey.performed -= instance.OnWKey;
+            @WKey.canceled -= instance.OnWKey;
+            @AKey.started -= instance.OnAKey;
+            @AKey.performed -= instance.OnAKey;
+            @AKey.canceled -= instance.OnAKey;
+            @SKey.started -= instance.OnSKey;
+            @SKey.performed -= instance.OnSKey;
+            @SKey.canceled -= instance.OnSKey;
+            @DKey.started -= instance.OnDKey;
+            @DKey.performed -= instance.OnDKey;
+            @DKey.canceled -= instance.OnDKey;
         }
 
         /// <summary>
@@ -409,13 +461,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMove(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -429,5 +474,33 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "WKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDKey(InputAction.CallbackContext context);
     }
 }

@@ -24,19 +24,7 @@ public class InputManager : MonoBehaviour, GameInput.IPlayerActions
 
     // This method is called whenever the "Move" action is triggered
     // It automatically gets a context object that contains information about the input event
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        // Check if the input action is performed or canceled
-        // `performed` occurs when the input starts or changes
-        // `canceled` occurs when the input stops (e.g., releasing a key or joystick returning to center)
-        if (context.performed || context.canceled)
-        {
-            // Read the value of the input Vector2 (e.g., from a joystick, WASD keys, or arrow keys)
-            // Trigger the MoveEvent action and pass the value to all subscribers
-            // This allows other scripts to respond to the movement input (e.g., player movement scripts)
-            Actions.MoveEvent?.Invoke(context.ReadValue<Vector2>());
-        }
-    }
+
 
     public void OnInteract(InputAction.CallbackContext context)
     {
@@ -52,13 +40,54 @@ public class InputManager : MonoBehaviour, GameInput.IPlayerActions
         
         
     }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnWKey(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+        Actions.W_KeyEvent?.Invoke();
+        }
+    }
+
+    public void OnAKey(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Actions.A_KeyEvent?.Invoke();
+        }
+    }
+
+    public void OnSKey(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Actions.S_KeyEvent?.Invoke();
+        }
+    }
+
+    public void OnDKey(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Actions.D_KeyEvent?.Invoke();
+        }
+    }
 }
 
 public static class Actions
-{
-    public static Action<Vector2> MoveEvent;
+{    
     public static Action InteractEvent;
     public static Action PauseEvent;
+
+    public static Action W_KeyEvent;
+    public static Action A_KeyEvent;
+    public static Action S_KeyEvent;
+    public static Action D_KeyEvent;
 }
 
 
