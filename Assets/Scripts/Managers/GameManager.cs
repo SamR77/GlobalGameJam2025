@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("levelManager reference is empty, attempting to find in children!");
 
             // Attempt to find component in children
-            levelManager = GetComponentInChildren<levelManager>();
+            levelManager = GetComponentInChildren<LevelManager>();
 
             // Check to see if it's still empty
             if (levelManager == null)
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Player reference is empty, attempting to find in children!");
 
             // Attempt to find component in children
-            playerManager = GetComponentInChildren<playerManager>();
+            playerManager = GetComponentInChildren<PlayerManager>();
 
             // Check to see if it's still empty
             if (playerManager == null)
