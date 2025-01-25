@@ -30,7 +30,6 @@ public class BubbleSpawner : MonoBehaviour
         // instantiate a new bubble a one of the fours SpawnRow positions.
 
 
-        Debug.Log("Spawning Bubble");
         int spawnRow = Random.Range(1, 5);
 
         switch (spawnRow)
