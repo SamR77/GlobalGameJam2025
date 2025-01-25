@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -9,24 +10,37 @@ using UnityEngine;
 
 public class GameState_GamePlay : IGameState
 {
+   
+
+
     public void EnterState(GameStateManager gameStateManager)
     {
         Time.timeScale = 1f;
         Cursor.visible = false;
         GameManager.Instance.uIManager.UIGamePlay();
+        Actions.PauseEvent += OnPause;
         //GameManager.Instance.playerManager.player.SetActive(true);
-
-
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }
 
     public void UpdateState(GameStateManager gameStateManager)
-    {      
+    {
+        
+    }
 
+    private void OnPause()
+    {
+        GameManager.Instance.gameStateManager.Pause();
     }
 
     public void LateUpdateState(GameStateManager gameStateManager) { }
 
-    public void ExitState(GameStateManager gameStateManager) { }
+    public void ExitState(GameStateManager gameStateManager) { Actions.PauseEvent -= OnPause; }
+
+
+
+  
+
+
 }

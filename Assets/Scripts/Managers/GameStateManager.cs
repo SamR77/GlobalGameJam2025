@@ -97,14 +97,17 @@ public class GameStateManager : MonoBehaviour
 
     public void Pause()
     {
+        
+
         if (currentGameState != gameState_Paused)
         {
+            
             SwitchToState(gameState_Paused);
         }
     }
 
     // UI Button calls this to resume the game when paused
-    public void UnPause()
+    public void Resume()
     {
         if (currentGameState == gameState_Paused)
         {

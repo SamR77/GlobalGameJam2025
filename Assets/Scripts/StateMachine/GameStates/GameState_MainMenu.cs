@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameState_MainMenu : IGameState
 {
+    
+
     public void EnterState(GameStateManager gameStateManager)
     {
         Cursor.visible = true;

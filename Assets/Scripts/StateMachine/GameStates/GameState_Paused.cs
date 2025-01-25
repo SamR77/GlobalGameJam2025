@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Sam Robichaud 
@@ -6,20 +7,30 @@ using UnityEngine;
 
 public class GameState_Paused : IGameState
 {
+    
+
+
+
     public void EnterState(GameStateManager gameStateManager)
     {
+        
         Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+
+        Actions.PauseEvent += OnResume;
 
         GameManager.Instance.uIManager.UIPaused();
         //gameStateManager._cameraManager.isCameraMoveEnabled = false;
     }
 
+
+
     public void FixedUpdateState(GameStateManager gameStateManager) {    }
 
     public void UpdateState(GameStateManager gameStateManager)
     {
+        
         
     }
 
@@ -31,5 +42,10 @@ public class GameState_Paused : IGameState
     {
         Time.timeScale = 1f;
         //gameStateManager._cameraManager.EnableCameraRotation();
+    }
+
+    private void OnResume()
+    {
+        GameManager.Instance.gameStateManager.Resume();
     }
 }

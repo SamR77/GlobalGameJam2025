@@ -9,6 +9,10 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    // Static instance property to provide global access
+    public static UIManager Instance { get; private set; }
+
+
     [Header("Object Connections")]
     public LevelManager levelManager;
 

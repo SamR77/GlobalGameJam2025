@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class GameState_Options : IGameState
 {
+    
+
+
     void IGameState.EnterState(GameStateManager gameStateManager)
     {
         Time.timeScale = 0f;
