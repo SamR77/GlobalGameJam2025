@@ -1271,6 +1271,7 @@ MonoBehaviour:
   EarlyLateScore: 25
   MissPenalty: -50
   animator: {fileID: 1669121709}
+  tears: {fileID: 1942284945}
   audioSource: {fileID: 467080269}
   bubblePopSounds:
   - {fileID: 8300000, guid: 4a79a613e3b86a34dba5efc8f33e9525, type: 3}
@@ -3029,6 +3030,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Baby_Tears_Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3fe081f18eea1c44fbefce8177d5d8a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5573,6 +5579,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937246364}
   m_CullTransparentMesh: 1
+--- !u!1 &1942284945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3fe081f18eea1c44fbefce8177d5d8a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1127432673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1954945493
 GameObject:
   m_ObjectHideFlags: 0

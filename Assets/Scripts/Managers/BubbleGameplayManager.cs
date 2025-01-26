@@ -17,6 +17,8 @@ public class BubbleGameplayManager : MonoBehaviour
     [Header("Reference to BabyAnimator")]
     public Animator animator; // Assign your Animator in the Inspector
 
+    public GameObject tears;
+
     [Header("Reference to AudioSource")]
     public AudioSource audioSource;
 
@@ -104,8 +106,17 @@ public class BubbleGameplayManager : MonoBehaviour
         //Debug.Log("Row 1 has " + rows[1].Count + " objects.");
         //Debug.Log("Row 2 has " + rows[2].Count + " objects.");
         //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
+
+        if( scorePercentage <= 0.1f)
+        {
+            tears.SetActive(true);
+        }
+        else
+        {
+            tears.SetActive(false);
+        }
     }
- 
+
 
     // Calculate score and display the appropriate result
     public void CalculateScore(Vector3 bubblePosition, bool isInBurstZone)
