@@ -82,6 +82,8 @@ public class BubbleGameplayManager : MonoBehaviour
         score = maxScore / 2; // Start with half of the maximum score
         scoreText.text = score.ToString();
 
+
+
         UpdateProgressBar();
 
 
@@ -208,6 +210,7 @@ public class BubbleGameplayManager : MonoBehaviour
         scoreText.text = score.ToString();
 
         UpdateProgressBar();
+        UpdateBabyAnimator();
 
     }
 
@@ -216,7 +219,7 @@ public class BubbleGameplayManager : MonoBehaviour
         if (progressBar != null)
         {
             scorePercentage = score / maxScore; // Convert score to percentage (0 to 1)
-            Debug.Log("Score Percentage: " + scorePercentage);
+            //Debug.Log("Score Percentage: " + scorePercentage);
             progressBar.value = scorePercentage;
         }
     }
@@ -225,6 +228,7 @@ public class BubbleGameplayManager : MonoBehaviour
     {
         if (animator != null)
         {
+            //Debug.Log("ScorePercentage on animator: " + scorePercentage);
             animator.SetFloat("HappyLevel", scorePercentage);
         }
     }
