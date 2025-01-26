@@ -8,6 +8,14 @@ public class BubbleGameplayManager : MonoBehaviour
     public int maxScore = 1000;
     public int Score;
 
+
+    public AudioSource audioSource;
+
+    
+    public AudioClip[] bubblePopSounds;
+
+
+
     public GameObject bubblePrefab;
 
     public Transform SpawnRow_00;
@@ -34,6 +42,7 @@ public class BubbleGameplayManager : MonoBehaviour
 
     private List<GameObject>[] rows;        // List of objects for each row
 
+    public ParticleSystem VFXBubbleBurst;
 
 
     void Start()
@@ -117,8 +126,6 @@ public class BubbleGameplayManager : MonoBehaviour
         // TODO: convert to spawn a UIText object prefab(at position of Bubble) with the result message that fades over time
         // may have to call in DeleteLeftmostBubble() method
         
-
-
         if (resultText != null)
         {
             resultText.text = result;
@@ -144,7 +151,7 @@ public class BubbleGameplayManager : MonoBehaviour
             Score = maxScore;
         }      
 
-        Debug.Log("Score: " + Score);
+        //Debug.Log("Score: " + Score);
 
         scoreText.text = Score.ToString();
  
@@ -190,9 +197,31 @@ public class BubbleGameplayManager : MonoBehaviour
                 // Remove the bubble from the list and destroy it
                 rows[rowIndex].RemoveAt(0);
                 Destroy(leftmostBubble);
+
+                // instantiate a VFX prefab at the position of the bubble
+                Instantiate(VFXBubbleBurst, bubblePosition, Quaternion.identity);
+
+                // play bubble pop Audio
+                PlayBubblePopAudio();
             }
-            
         }
+    }
+
+    void PlayBubblePopAudio()
+    {
+        
+        // Select a random bubble pop sound from the array
+        int randomIndex = Random.Range(0, bubblePopSounds.Length);
+
+        // Get the name of the selected audio clip
+        Debug.Log("Selected Audio Clip: " + bubblePopSounds[randomIndex].name);
+
+
+
+        //play select audio clip
+        audioSource.clip = bubblePopSounds[randomIndex];
+        audioSource.Play();
+        Debug.Log("Audio is playing: " + audioSource.isPlaying);
     }
 
     public void HandleBubbleClear(Bubble bubble)
