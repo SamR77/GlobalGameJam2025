@@ -97,7 +97,7 @@ public class BubbleGameplayManager : MonoBehaviour
         }
 
         // Spawn bubbles every 2 seconds
-        InvokeRepeating(nameof(SpawnBubble), 2f, 2f);
+        InvokeRepeating(nameof(SpawnBubble), 1f, 1f);
     }
 
     void Update()
@@ -128,7 +128,7 @@ public class BubbleGameplayManager : MonoBehaviour
             // MISS not in burst Zone!
             if (resultPopupMissed != null)
             {
-                Instantiate(resultPopupMissed, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 1.5f), Quaternion.identity);
+                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
                 UpdateScore(MissPenalty);
             }
             return;
@@ -146,7 +146,7 @@ public class BubbleGameplayManager : MonoBehaviour
             // PERFECT! bubble popped inside the perfect zone
             if (resultPopupPerfect != null)
             {
-                Instantiate(resultPopupPerfect, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 1.5f), Quaternion.identity);
+                Instantiate(resultPopupPerfect, bubblePosition, Quaternion.identity);
             }
             UpdateScore(PerfectScore);
         }
@@ -155,7 +155,7 @@ public class BubbleGameplayManager : MonoBehaviour
             // GOOD! bubble popped within the good zone
             if (resultPopupGood != null)
             {
-                Instantiate(resultPopupGood, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 1.5f), Quaternion.identity);
+                Instantiate(resultPopupGood, bubblePosition, Quaternion.identity);
             }
             UpdateScore(GoodScore);
         }
@@ -167,7 +167,7 @@ public class BubbleGameplayManager : MonoBehaviour
                 // EARLY! bubble popped before the burst zone center
                 if (resultPopupEarly != null)
                 {
-                    Instantiate(resultPopupEarly, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 1.5f), Quaternion.identity);
+                    Instantiate(resultPopupEarly, bubblePosition, Quaternion.identity);
                 }
                 UpdateScore(EarlyLateScore);
             }
@@ -176,7 +176,7 @@ public class BubbleGameplayManager : MonoBehaviour
                 // LATE! bubble popped after the burst zone center
                 if (resultPopupLate != null)
                 {
-                    Instantiate(resultPopupLate, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 1.5f), Quaternion.identity);
+                    Instantiate(resultPopupLate, bubblePosition, Quaternion.identity);
                 }
                 UpdateScore(EarlyLateScore);
             }
@@ -189,7 +189,7 @@ public class BubbleGameplayManager : MonoBehaviour
             {
                 //Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
 
-                Instantiate(resultPopupMissed, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z -1.5f), Quaternion.identity);
+                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
             }
         }
     }

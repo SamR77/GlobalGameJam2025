@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b89028f3c8a024380e3b205f458cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 20
   isInBurstZone: 0
   bubbleGameplayManager: {fileID: 0}
