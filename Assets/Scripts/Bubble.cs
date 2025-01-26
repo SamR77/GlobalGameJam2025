@@ -6,14 +6,14 @@ using UnityEngine;
 public class Bubble : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private bool isInBurstZone = false;
+    [SerializeField] public bool isInBurstZone = false;
 
-    [SerializeField] private BubbleBurstZone bubbleBurstZone; // Reference to the BubbleBurstZone script
+    [SerializeField] private BubbleGameplayManager bubbleGameplayManager; // Reference to the BubbleBurstZone script
 
     void Start()
     {
         // Find the BubbleBurstZone script in the scene
-        bubbleBurstZone = FindObjectOfType<BubbleBurstZone>();
+        bubbleGameplayManager = FindObjectOfType<BubbleGameplayManager>();
     }
 
     // Update is called once per frame
@@ -23,17 +23,7 @@ public class Bubble : MonoBehaviour
         this.transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
     }
 
-    void OnMouseDown()
-    {
-        // Notify the BubbleBurstZone directly about the burst
-        if (bubbleBurstZone != null)
-        {
-            bubbleBurstZone.CalculateScore(transform.position, isInBurstZone);
-        }
-
-        // Destroy the bubble immediately after being clicked
-        Destroy(gameObject);
-    }
+   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -41,10 +31,13 @@ public class Bubble : MonoBehaviour
         {
             isInBurstZone = true;
         }
-        else if (other.CompareTag("Clearer"))
+        else if (other.CompareTag("Clearer")) // When it collides with the Clearer
         {
-            Destroy(this.gameObject);
-            // TODO: add info to count this as a negative
+            // Notify the Gameplay Manager to handle the "miss"
+            bubbleGameplayManager.HandleBubbleClear(this);
+
+            // Destroy the bubble object
+            Destroy(gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
