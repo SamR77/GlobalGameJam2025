@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
 
     private void ReferenceCheck()
     {
-
         if (levelManager == null)
         {
             Debug.LogWarning("levelManager reference is empty, attempting to find in children!");
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("levelManager reference is missing in GameManager and its children!");
             }
         }
-
         
 
         if (gameStateManager == null)

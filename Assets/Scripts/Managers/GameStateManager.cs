@@ -43,9 +43,6 @@ public class GameStateManager : MonoBehaviour
 
         // Enter the initial game state
         currentGameState.EnterState(this);
-
-
-
     }
 
     #region State Machine Update Calls
@@ -97,8 +94,6 @@ public class GameStateManager : MonoBehaviour
 
     public void Pause()
     {
-        
-
         if (currentGameState != gameState_Paused)
         {
             
@@ -114,6 +109,9 @@ public class GameStateManager : MonoBehaviour
             SwitchToState(gameState_GamePlay);
         }
     }
+
+
+    public void GameOver() { SwitchToState(gameState_GameOver); }
 
     public void OpenCredits() { SwitchToState(gameState_Credits); }
     public void OpenOptions() { SwitchToState(gameState_Options); }

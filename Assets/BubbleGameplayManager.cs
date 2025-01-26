@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class BubbleGameplayManager : MonoBehaviour
 {
-    public int Score = 0;
+    public int maxScore = 1000;
+    public int Score;
 
     public GameObject bubblePrefab;
 
@@ -19,7 +20,7 @@ public class BubbleGameplayManager : MonoBehaviour
     public float earlyLateMinPercent = 0f;  // Min percent distance to get an "Early or late" 
 
     public int PerfectScore = 100;
-    public int GoodScore = 50;  
+    public int GoodScore = 50;
     public int EarlyLateScore = 25;
     public int MissPenalty = -50;
 
@@ -43,6 +44,10 @@ public class BubbleGameplayManager : MonoBehaviour
         burstZoneCenter = burstZoneCollider.bounds.center;
         maxDistance = burstZoneCollider.bounds.extents.x; // Half of the collider width
 
+        Score = maxScore / 2; // Start with half of the maximum score
+        scoreText.text = Score.ToString();
+
+
         // Initialize the rows (4 rows in total)
         rows = new List<GameObject>[4];
         for (int i = 0; i < 4; i++)
@@ -55,11 +60,18 @@ public class BubbleGameplayManager : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
         //Debug.Log("Row 0 has " + rows[0].Count + " objects.");
         //Debug.Log("Row 1 has " + rows[1].Count + " objects.");
         //Debug.Log("Row 2 has " + rows[2].Count + " objects.");
         //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
+
+        CheckForLose();
+        
+    }
+    void CheckForLose()
+    {
+        
     }
 
     // Calculate score and display the appropriate result
@@ -70,6 +82,7 @@ public class BubbleGameplayManager : MonoBehaviour
         if (!isInBurstZone || !burstZoneCollider.bounds.Contains(bubblePosition))
         {            
             UpdateResultText("Miss!");
+            UpdateScore(MissPenalty);
             return;
         }
 
@@ -99,8 +112,8 @@ public class BubbleGameplayManager : MonoBehaviour
         {
             UpdateResultText("Miss!");
             UpdateScore(MissPenalty);
-            //delete the bubble from the list
-            //destroy the bubble
+            
+     
         }
     }
 
@@ -124,13 +137,23 @@ public class BubbleGameplayManager : MonoBehaviour
     void UpdateScore(int bubbleAccuracyScore)
     {
         Score += bubbleAccuracyScore;
+
+        // cap the top value of the score
+        if (Score <= 0)
+        {
+            Debug.Log("You Lose!");
+            GameManager.Instance.gameStateManager.GameOver();
+        }
+
+        else if (Score > maxScore)
+        {
+            Score = maxScore;
+        }      
+
         Debug.Log("Score: " + Score);
 
-
         scoreText.text = Score.ToString();
-        // TODO:
-        // add logic to cap score with a min and maximum value
-        // eventually convert to a Progress Bar
+ 
 
     }
 

@@ -8,11 +8,13 @@ using UnityEngine;
 
 public class GameState_GameOver : IGameState
 {
-    
-
     void IGameState.EnterState(GameStateManager gameStateManager)
     {
+        Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
 
+        GameManager.Instance.uIManager.UIGameOver();
     }
 
     void IGameState.FixedUpdateState(GameStateManager gameStateManager)
