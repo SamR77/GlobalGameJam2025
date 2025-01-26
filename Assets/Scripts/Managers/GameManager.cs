@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
     public UIManager uIManager;
     public GameStateManager gameStateManager;
-    public PlayerManager playerManager;
+    
 
        
 
@@ -53,19 +53,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (playerManager == null)
-        {
-            Debug.LogWarning("Player reference is empty, attempting to find in children!");
-
-            // Attempt to find component in children
-            playerManager = GetComponentInChildren<PlayerManager>();
-
-            // Check to see if it's still empty
-            if (playerManager == null)
-            {
-                Debug.LogError("playerManager reference is missing in GameManager and its children!");
-            }
-        }
+        
 
         if (gameStateManager == null)
         {
