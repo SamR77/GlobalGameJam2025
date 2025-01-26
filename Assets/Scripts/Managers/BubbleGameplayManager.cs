@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI; // Required for UI components like Slider
 
 public class BubbleGameplayManager : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class BubbleGameplayManager : MonoBehaviour
 
     [Header("Bubble Pop Audio Clips")]
     public AudioClip[] bubblePopSounds;
+
+    [Header("Progress Bar")]
+    public Slider progressBar;
+
 
     [Header("Result Popup Messages")]
     public Canvas resultPopupMissed;
