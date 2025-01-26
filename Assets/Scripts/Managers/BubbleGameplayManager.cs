@@ -14,6 +14,9 @@ public class BubbleGameplayManager : MonoBehaviour
     public int EarlyLateScore = 25;
     public int MissPenalty = -50;
 
+    [Header("Reference to BabyAnimator")]
+    public Animator animator; // Assign your Animator in the Inspector
+
     [Header("Reference to AudioSource")]
     public AudioSource audioSource;
 
@@ -215,6 +218,14 @@ public class BubbleGameplayManager : MonoBehaviour
             scorePercentage = score / maxScore; // Convert score to percentage (0 to 1)
             Debug.Log("Score Percentage: " + scorePercentage);
             progressBar.value = scorePercentage;
+        }
+    }
+
+    void UpdateBabyAnimator()
+    {
+        if (animator != null)
+        {
+            animator.SetFloat("HappyLevel", scorePercentage);
         }
     }
 
