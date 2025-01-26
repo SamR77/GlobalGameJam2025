@@ -10,6 +10,7 @@ public class GameState_MainMenu : IGameState
 
     public void EnterState(GameStateManager gameStateManager)
     {
+        Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
