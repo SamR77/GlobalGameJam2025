@@ -1187,6 +1187,7 @@ MonoBehaviour:
   GoodScore: 50
   EarlyLateScore: 25
   MissPenalty: -50
+  animator: {fileID: 1669121709}
   audioSource: {fileID: 467080269}
   bubblePopSounds:
   - {fileID: 8300000, guid: 4a79a613e3b86a34dba5efc8f33e9525, type: 3}
