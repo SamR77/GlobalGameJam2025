@@ -117,7 +117,7 @@ public class BubbleGameplayManager : MonoBehaviour
             // MISS not in burst Zone!
             if (resultPopupMissed != null)
             {
-                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
+                Instantiate(resultPopupMissed, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 0.5f), Quaternion.identity);
             }
             return;
         }
@@ -131,45 +131,54 @@ public class BubbleGameplayManager : MonoBehaviour
         // Determine the result based on percentage thresholds
         if (percentage >= perfectMinPercent)
         {
-            // PERFECT! bubble popped outside of the Burst Zone 
+            // PERFECT! bubble popped inside the perfect zone
             if (resultPopupPerfect != null)
             {
-                Instantiate(resultPopupPerfect, bubblePosition, Quaternion.identity);
+                Instantiate(resultPopupPerfect, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 0.5f), Quaternion.identity);
             }
             UpdateScore(PerfectScore);
         }
         else if (percentage >= goodMinPercent)
         {
-            // GOOD! bubble popped outside of the Burst Zone 
+            // GOOD! bubble popped within the good zone
             if (resultPopupGood != null)
             {
-                Instantiate(resultPopupGood, bubblePosition, Quaternion.identity);
+                Instantiate(resultPopupGood, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 0.5f), Quaternion.identity);
             }
-
             UpdateScore(GoodScore);
         }
         else if (percentage >= earlyLateMinPercent)
         {
-            // TODO: Update to detect the difference between early and late
-            // EARLY! bubble popped outside of the Burst Zone 
-            if (resultPopupEarly != null)
+            // Early or Late: check if the pop was early or late
+            if (bubblePosition.x < burstZoneCenter.x)
             {
-                Instantiate(resultPopupEarly, bubblePosition, Quaternion.identity);
+                // EARLY! bubble popped before the burst zone center
+                if (resultPopupEarly != null)
+                {
+                    Instantiate(resultPopupEarly, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 0.5f), Quaternion.identity);
+                }
+                UpdateScore(EarlyLateScore);
             }
-
-            UpdateScore(EarlyLateScore);
+            else
+            {
+                // LATE! bubble popped after the burst zone center
+                if (resultPopupLate != null)
+                {
+                    Instantiate(resultPopupLate, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z - 0.5f), Quaternion.identity);
+                }
+                UpdateScore(EarlyLateScore);
+            }
         }
         else
         {
-            // MISS! bubble popped outside of the Burst Zone            
+            // MISS! bubble popped too early or too late outside of the defined zones
             UpdateScore(MissPenalty);
             if (resultPopupMissed != null)
             {
-                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
+                //Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
+
+                Instantiate(resultPopupMissed, new Vector3(bubblePosition.x, bubblePosition.y, bubblePosition.z -0.5f), Quaternion.identity);
             }
-                
-
-
         }
     }
 
