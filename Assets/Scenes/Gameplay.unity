@@ -1080,13 +1080,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxScore: 1000
-  Score: 0
+  PerfectScore: 100
+  GoodScore: 50
+  EarlyLateScore: 25
+  MissPenalty: -50
   audioSource: {fileID: 467080269}
   bubblePopSounds:
   - {fileID: 8300000, guid: 4a79a613e3b86a34dba5efc8f33e9525, type: 3}
   - {fileID: 8300000, guid: 745bb9ca33d83f44d9dcde36af0a6669, type: 3}
   - {fileID: 8300000, guid: 820d9e293b37af2409a0e0da4e743366, type: 3}
   - {fileID: 8300000, guid: 776dd8388d931954fbe8f8cfa6e22bd7, type: 3}
+  resultPopupMissed: {fileID: 7614812546591573708, guid: b05ddeac37cd63f4db1950384d50fcac,
+    type: 3}
+  resultPopupPerfect: {fileID: 7614812546591573708, guid: cd648fb2fec9f3d4e8c22f8c180ae5bc,
+    type: 3}
+  resultPopupGood: {fileID: 7614812546591573708, guid: 39f1c0f63d73b4441849cac3b5c9f454,
+    type: 3}
+  resultPopupEarly: {fileID: 7614812546591573708, guid: 8140f3ad65e80f941a471238bba765a5,
+    type: 3}
+  resultPopupLate: {fileID: 6125476182719995788, guid: 1e4f63032e728974190ff5fae4655093,
+    type: 3}
+  VFXBubbleBurst: {fileID: 8552982063088189512, guid: 6ff6c98c8a48828418f727a5a46d5da4,
+    type: 3}
   bubblePrefab: {fileID: 3605526495764806015, guid: 3f1f05d60fa5382419b68d08d5677c98,
     type: 3}
   SpawnRow_00: {fileID: 2053753633}
@@ -1096,14 +1111,8 @@ MonoBehaviour:
   perfectMinPercent: 90
   goodMinPercent: 40
   earlyLateMinPercent: 0
-  PerfectScore: 100
-  GoodScore: 50
-  EarlyLateScore: 25
-  MissPenalty: -50
   resultText: {fileID: 873938269}
   scoreText: {fileID: 71401973}
-  VFXBubbleBurst: {fileID: 8552982063088189512, guid: 6ff6c98c8a48828418f727a5a46d5da4,
-    type: 3}
 --- !u!82 &467080269
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2129,7 +2138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &873938269
 MonoBehaviour:
   m_ObjectHideFlags: 0

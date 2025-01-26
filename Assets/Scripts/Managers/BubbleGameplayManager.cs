@@ -5,32 +5,48 @@ using UnityEngine;
 
 public class BubbleGameplayManager : MonoBehaviour
 {
+    [Header("Points awarded based on accuracy")]
     public int maxScore = 1000;
-    public int Score;
+    public int PerfectScore = 100;
+    public int GoodScore = 50;
+    public int EarlyLateScore = 25;
+    public int MissPenalty = -50;
 
-
+    [Header("Reference to AudioSource")]
     public AudioSource audioSource;
 
-    
+    [Header("Bubble Pop Audio Clips")]
     public AudioClip[] bubblePopSounds;
 
+    [Header("Result Popup Messages")]
+    public Canvas resultPopupMissed;
+    public Canvas resultPopupPerfect;    
+    public Canvas resultPopupGood;
+    public Canvas resultPopupEarly;
+    public Canvas resultPopupLate;
+
+    [Header("VFX Prefabs")] 
+    public ParticleSystem VFXBubbleBurst;
 
 
+    [Header("Bubble Prefab")]
     public GameObject bubblePrefab;
 
+    [Header("Gameplay Rows")]
     public Transform SpawnRow_00;
     public Transform SpawnRow_01;
     public Transform SpawnRow_02;
     public Transform SpawnRow_03;
 
+    [Header("Tolerances for popping accuracy")]
     public float perfectMinPercent = 90f;   // Min percent distance to get a "Perfect" 
     public float goodMinPercent = 40f;      // Min percent distance to get a "Good" 
     public float earlyLateMinPercent = 0f;  // Min percent distance to get an "Early or late" 
 
-    public int PerfectScore = 100;
-    public int GoodScore = 50;
-    public int EarlyLateScore = 25;
-    public int MissPenalty = -50;
+
+    // Private Variables
+
+    private int Score;                      // stores the current gameplay score
 
     private Vector3 burstZoneCenter;        // The very center of the Burst Zone
     private float maxDistance;              // The maximum distance of the Burst Zone
@@ -42,7 +58,7 @@ public class BubbleGameplayManager : MonoBehaviour
 
     private List<GameObject>[] rows;        // List of objects for each row
 
-    public ParticleSystem VFXBubbleBurst;
+    
 
 
     void Start()
@@ -84,8 +100,11 @@ public class BubbleGameplayManager : MonoBehaviour
         // Check if the bubble is inside the Burst Zone collider
         if (!isInBurstZone || !burstZoneCollider.bounds.Contains(bubblePosition))
         {            
-            UpdateResultText("Miss!");
-            UpdateScore(MissPenalty);
+            // MISS not in burst Zone!
+            if (resultPopupMissed != null)
+            {
+                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
+            }
             return;
         }
 
@@ -98,25 +117,45 @@ public class BubbleGameplayManager : MonoBehaviour
         // Determine the result based on percentage thresholds
         if (percentage >= perfectMinPercent)
         {
-            UpdateResultText("Perfect!");
+            // PERFECT! bubble popped outside of the Burst Zone 
+            if (resultPopupPerfect != null)
+            {
+                Instantiate(resultPopupPerfect, bubblePosition, Quaternion.identity);
+            }
             UpdateScore(PerfectScore);
         }
         else if (percentage >= goodMinPercent)
         {
-            UpdateResultText("Good!");
+            // GOOD! bubble popped outside of the Burst Zone 
+            if (resultPopupGood != null)
+            {
+                Instantiate(resultPopupGood, bubblePosition, Quaternion.identity);
+            }
+
             UpdateScore(GoodScore);
         }
         else if (percentage >= earlyLateMinPercent)
         {
-            UpdateResultText("Early/Late!");
+            // TODO: Update to detect the difference between early and late
+            // EARLY! bubble popped outside of the Burst Zone 
+            if (resultPopupEarly != null)
+            {
+                Instantiate(resultPopupEarly, bubblePosition, Quaternion.identity);
+            }
+
             UpdateScore(EarlyLateScore);
         }
         else
         {
-            UpdateResultText("Miss!");
+            // MISS! bubble popped outside of the Burst Zone            
             UpdateScore(MissPenalty);
-            
-     
+            if (resultPopupMissed != null)
+            {
+                Instantiate(resultPopupMissed, bubblePosition, Quaternion.identity);
+            }
+                
+
+
         }
     }
 
@@ -208,16 +247,13 @@ public class BubbleGameplayManager : MonoBehaviour
     }
 
     void PlayBubblePopAudio()
-    {
-        
+    {        
         // Select a random bubble pop sound from the array
         int randomIndex = Random.Range(0, bubblePopSounds.Length);
 
         // Get the name of the selected audio clip
         Debug.Log("Selected Audio Clip: " + bubblePopSounds[randomIndex].name);
-
-
-
+        
         //play select audio clip
         audioSource.clip = bubblePopSounds[randomIndex];
         audioSource.Play();
