@@ -64,15 +64,9 @@ public class BubbleGameplayManager : MonoBehaviour
         //Debug.Log("Row 0 has " + rows[0].Count + " objects.");
         //Debug.Log("Row 1 has " + rows[1].Count + " objects.");
         //Debug.Log("Row 2 has " + rows[2].Count + " objects.");
-        //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
-
-        CheckForLose();
-        
+        //Debug.Log("Row 3 has " + rows[3].Count + " objects.");   
     }
-    void CheckForLose()
-    {
-        
-    }
+ 
 
     // Calculate score and display the appropriate result
     public void CalculateScore(Vector3 bubblePosition, bool isInBurstZone)
@@ -235,4 +229,14 @@ public class BubbleGameplayManager : MonoBehaviour
         Actions.S_KeyEvent -= () => DeleteLeftmostBubble(2);
         Actions.D_KeyEvent -= () => DeleteLeftmostBubble(3);
     }
+
+
+    //reset the game stats
+    public void ResetGameStats()
+    {
+        Score = maxScore / 2; // Start with half of the maximum score
+        scoreText.text = Score.ToString();
+    }
+
+
 }

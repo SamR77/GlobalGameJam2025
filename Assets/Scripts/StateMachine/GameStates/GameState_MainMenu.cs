@@ -13,6 +13,8 @@ public class GameState_MainMenu : IGameState
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
+        GameManager.Instance.bubbleGameplayManager.ResetGameStats();
+
         // May want to consider locking the cursor to the center of the screen
 
         GameManager.Instance.uIManager.UIMainMenu();

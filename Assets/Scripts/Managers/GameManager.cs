@@ -12,12 +12,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     // References to scripts
-    public LevelManager levelManager;
+    //public LevelManager levelManager;
     public UIManager uIManager;
     public GameStateManager gameStateManager;
-    
+    public BubbleGameplayManager bubbleGameplayManager;
 
-       
+
+
 
     private void Awake()
     {
@@ -38,19 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void ReferenceCheck()
     {
-        if (levelManager == null)
-        {
-            Debug.LogWarning("levelManager reference is empty, attempting to find in children!");
-
-            // Attempt to find component in children
-            levelManager = GetComponentInChildren<LevelManager>();
-
-            // Check to see if it's still empty
-            if (levelManager == null)
-            {
-                Debug.LogError("levelManager reference is missing in GameManager and its children!");
-            }
-        }
+       
         
 
         if (gameStateManager == null)
