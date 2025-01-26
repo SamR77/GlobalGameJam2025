@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI; // Required for UI components like Slider
 
 public class BubbleGameplayManager : MonoBehaviour
@@ -51,7 +52,8 @@ public class BubbleGameplayManager : MonoBehaviour
 
     // Private Variables
 
-    private int Score;                      // stores the current gameplay score
+    private float score;                      // stores the current gameplay score
+    private float scorePercentage;            // stores the current gameplay score as a percentage of the max score
 
     private Vector3 burstZoneCenter;        // The very center of the Burst Zone
     private float maxDistance;              // The maximum distance of the Burst Zone
@@ -74,8 +76,10 @@ public class BubbleGameplayManager : MonoBehaviour
         burstZoneCenter = burstZoneCollider.bounds.center;
         maxDistance = burstZoneCollider.bounds.extents.x; // Half of the collider width
 
-        Score = maxScore / 2; // Start with half of the maximum score
-        scoreText.text = Score.ToString();
+        score = maxScore / 2; // Start with half of the maximum score
+        scoreText.text = score.ToString();
+
+        UpdateProgressBar();
 
 
         // Initialize the rows (4 rows in total)
@@ -94,7 +98,7 @@ public class BubbleGameplayManager : MonoBehaviour
         //Debug.Log("Row 0 has " + rows[0].Count + " objects.");
         //Debug.Log("Row 1 has " + rows[1].Count + " objects.");
         //Debug.Log("Row 2 has " + rows[2].Count + " objects.");
-        //Debug.Log("Row 3 has " + rows[3].Count + " objects.");   
+        //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
     }
  
 
@@ -181,25 +185,37 @@ public class BubbleGameplayManager : MonoBehaviour
 
     void UpdateScore(int bubbleAccuracyScore)
     {
-        Score += bubbleAccuracyScore;
+        score += bubbleAccuracyScore;
 
         // cap the top value of the score
-        if (Score <= 0)
+        if (score <= 0)
         {
-            Debug.Log("You Lose!");
+            score = 0;
+            //Debug.Log("You Lose!");
             GameManager.Instance.gameStateManager.GameOver();
         }
 
-        else if (Score > maxScore)
+        else if (score > maxScore)
         {
-            Score = maxScore;
+            score = maxScore;
         }      
 
         //Debug.Log("Score: " + Score);
 
-        scoreText.text = Score.ToString();
- 
+        scoreText.text = score.ToString();
 
+        UpdateProgressBar();
+
+    }
+
+    void UpdateProgressBar()
+    {
+        if (progressBar != null)
+        {
+            scorePercentage = score / maxScore; // Convert score to percentage (0 to 1)
+            Debug.Log("Score Percentage: " + scorePercentage);
+            progressBar.value = scorePercentage;
+        }
     }
 
 
@@ -304,8 +320,8 @@ public class BubbleGameplayManager : MonoBehaviour
     //reset the game stats
     public void ResetGameStats()
     {
-        Score = maxScore / 2; // Start with half of the maximum score
-        scoreText.text = Score.ToString();
+        score = maxScore / 2; // Start with half of the maximum score
+        scoreText.text = score.ToString();
     }
 
 
