@@ -5,10 +5,14 @@ Jordan Cameron
 NSCC Truro 2025
 This work is licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-Note Area
 
-Perfect = 10% away from center
-Good = more than 50% and less than 10% away from center
+═════ TODO: Non-Prioritized ══════
+
+• ART:  Find a broader font for the results popup (bold or black) to make it more readable
+• CODE: Add a bounce to the results popup when it appears (tweening)
+• CODE: Add system to increase difficulty after every X number of spawns (values to change... Increase speed of bubble and decrease time between spawns... also consider randomiziong between min/max values)
+• CODE: Improve Progress bar: Add an extra layer on the bar to show the immediate change, along with a bar to show the more gradual change, this bar should lerp between values. Lerping value should also give a more smooth transition to the baby expressions.
+• CODE: Clean up project and refactor code, split big script into smaller pieces... use encapsulation.
 
 
 
