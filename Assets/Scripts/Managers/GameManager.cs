@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     // Static instance property to provide global access
     public static GameManager Instance { get; private set; }
 
-    // References to scripts
-    //public LevelManager levelManager;
+    [Header("Dependencies")]
     public UIManager uIManager;
     public GameStateManager gameStateManager;
+
 
     private void Awake()
     {
@@ -32,41 +32,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         #endregion
-        ReferenceCheck();
-    }
 
-    private void ReferenceCheck()
-    {
-        if (gameStateManager == null)
-        {
-            Debug.LogWarning("gameStateManager reference is empty, attempting to find in children!");
-
-            // Attempt to find component in children
-            gameStateManager = GetComponentInChildren<GameStateManager>();
-
-            // Check to see if it's still empty
-            if (gameStateManager == null)
-            {
-                Debug.LogError("Player reference is missing in GameManager and its children!");
-            }
-        }
-
-        if (uIManager == null)
-        {
-            Debug.LogWarning("uIManager reference is empty, attempting to find in children!");
-
-            // Attempt to find component in children
-            uIManager = GetComponentInChildren<UIManager>();
-
-            // Check to see if it's still empty
-            if (uIManager == null)
-            {
-                Debug.LogError("uIManager reference is missing in GameManager and its children!");
-            }
-        }
-
-
-    }
+    }  
 
 
     [Header("Points awarded based on accuracy")]
@@ -77,26 +44,18 @@ public class GameManager : MonoBehaviour
     public int MissPenalty = -50;
 
     [Header("Reference to BabyAnimator")]
-    public Animator animator; // Assign your Animator in the Inspector
+    public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
 
-    public GameObject tears;
+    public GameObject tears; // TODO: move to an AnimationManager script
 
-    [Header("Reference to AudioSource")]
+    [Header("Reference to AudioSource")] // TODO: move to an AudioManager script
     public AudioSource audioSource;
 
-    [Header("Bubble Pop Audio Clips")]
+    [Header("Bubble Pop Audio Clips")] // TODO: move to an AudioManager script
     public AudioClip[] bubblePopSounds;
 
 
 
-    /*
-    [Header("Result Popup Messages")]
-    public Canvas resultPopupMissed;
-    public Canvas resultPopupPerfect;
-    public Canvas resultPopupGood;
-    public Canvas resultPopupEarly;
-    public Canvas resultPopupLate;
-    */
 
     [Header("VFX Prefabs")]
     public ParticleSystem VFXBubbleBurst;
@@ -105,7 +64,7 @@ public class GameManager : MonoBehaviour
     [Header("Bubble Prefab")]
     public GameObject bubblePrefab;
 
-    [Header("Gameplay Rows")]
+    [Header("Gameplay Rows")] // TODO : move this into a spawn manager script
     public Transform SpawnRow_00;
     public Transform SpawnRow_01;
     public Transform SpawnRow_02;
@@ -122,13 +81,13 @@ public class GameManager : MonoBehaviour
     private float score;                      // stores the current gameplay score
     private float happynessPercentage;            // stores the current gameplay score as a percentage of the max score
 
-    private Vector3 burstZoneCenter;        // The very center of the Burst Zone
+    private Vector3 scoreZoneCenter;        // The very center of the Burst Zone
     private float maxDistance;              // The maximum distance of the Burst Zone
 
     public TextMeshProUGUI resultText;      // Reference to the TextMeshPro component for displaying result
     public TextMeshProUGUI scoreText;       // Reference to the TextMeshPro component for displaying score
 
-    private Collider burstZoneCollider;       // The trigger zone collider
+    private Collider scoreZoneCollider;       // The trigger zone collider
 
     private List<GameObject>[] rows;        // List of objects for each row
 
@@ -139,9 +98,9 @@ public class GameManager : MonoBehaviour
     {
         // Get the Burst Zone object and calculate the center and maximum distance
         GameObject burstZoneObject = GameObject.FindGameObjectWithTag("BurstZone");
-        burstZoneCollider = burstZoneObject.GetComponent<Collider>();
-        burstZoneCenter = burstZoneCollider.bounds.center;
-        maxDistance = burstZoneCollider.bounds.extents.x; // Half of the collider width
+        scoreZoneCollider = burstZoneObject.GetComponent<Collider>();
+        scoreZoneCenter = scoreZoneCollider.bounds.center;
+        maxDistance = scoreZoneCollider.bounds.extents.x; // Half of the collider width
 
         score = maxScore / 2; // Start with half of the maximum score
         // Delete scoreText.text = score.ToString();
@@ -181,26 +140,21 @@ public class GameManager : MonoBehaviour
 
 
 
-
-
-
-
     // Calculate score and display the appropriate result
-    public void CalculateScore(Vector3 bubblePosition, bool isInBurstZone)
+    public void CalculateScore(Vector3 bubblePosition, bool isInScoreZone)
     {
-
         // Check if the bubble is NOT within the scoringZone
-        if (!isInBurstZone)
+        if (!isInScoreZone)
         {
             UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupMissed, bubblePosition);
             UpdateScore(MissPenalty);                  
         }
 
         // if the bubble is burst within the scoringZone
-        else if (isInBurstZone)
+        else if (isInScoreZone)
         {
             // Calculate the horizontal distance from the Burst Zone center
-            float distanceX = Mathf.Abs(burstZoneCenter.x - bubblePosition.x);
+            float distanceX = Mathf.Abs(scoreZoneCenter.x - bubblePosition.x);
 
             // Calculate percentage distance relative to the maximum distance
             float percentage = Mathf.Clamp01(1 - (distanceX / maxDistance)) * 100;
@@ -221,15 +175,15 @@ public class GameManager : MonoBehaviour
             else if (percentage >= earlyLateMinPercent)
             {
                 // Early or Late: check if the pop was early or late
-                if (bubblePosition.x < burstZoneCenter.x)
+                if (bubblePosition.x < scoreZoneCenter.x)
                 {
-                    // EARLY! bubble popped too early inside the defined zones
-                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
+                    // LATE! bubble popped too late inside the defined zones
+                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupLate, bubblePosition);                 
                 }
                 else
                 {
-                    // LATE! bubble popped too late inside the defined zones
-                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupLate, bubblePosition);            
+                    // EARLY! bubble popped too early inside the defined zones
+                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
                 }
                 UpdateScore(EarlyLateScore);
             }
@@ -271,21 +225,13 @@ public class GameManager : MonoBehaviour
         else if (score > maxScore)
         {
             score = maxScore;
-        }
-
-        //Debug.Log("Score: " + Score);
-
-        // Delete scoreText.text = score.ToString();
-
-
-        
+        }        
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
         UpdateBabyAnimator();
-
     }
 
 
-    void UpdateBabyAnimator()
+    void UpdateBabyAnimator() // TODO: Consider moving into it's own Manager Script.. although there is not much at the moment.. we may want to add more animations later
     {
         if (animator != null)
         {
@@ -296,7 +242,7 @@ public class GameManager : MonoBehaviour
 
 
     // Spawns a bubble at a random row
-    private void SpawnBubble()
+    private void SpawnBubble()  // TODO: move this into a spawn manager script (pass in speed and spawn rate when spawning, this will allow us to adjust over time)
     {
         int spawnRow = Random.Range(0, 4); // Randomly select a row (0-3)
         Transform spawnTransform = spawnRow switch
@@ -345,10 +291,6 @@ public class GameManager : MonoBehaviour
 
     void PlayBubblePopAudio()
     {
-
-
-
-
         // Select a random bubble pop sound from the array
         int randomIndex = Random.Range(0, bubblePopSounds.Length);
 
@@ -364,7 +306,7 @@ public class GameManager : MonoBehaviour
         //play select audio clip
         audioSource.clip = bubblePopSounds[randomIndex];
         audioSource.Play();        
-    }
+    } // TODO: move this into a an audioManager script
 
     public void HandleBubbleClear(Bubble bubble)
     {

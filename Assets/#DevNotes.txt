@@ -12,7 +12,7 @@ This work is licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/license
 • CODE: Add a bounce to the results popup when it appears (tweening)
 • CODE: Add system to increase difficulty after every X number of spawns (values to change... Increase speed of bubble and decrease time between spawns... also consider randomiziong between min/max values)
 • CODE: Improve Progress bar: Add an extra layer on the bar to show the immediate change, along with a bar to show the more gradual change, this bar should lerp between values. Lerping value should also give a more smooth transition to the baby expressions.
-• CODE: Clean up project and refactor code, split big script into smaller pieces... use encapsulation.
+• CODE: Clean up project and refactor code, split big script into smaller pieces... use encapsulation *** this has beeen started there is still more work to do to split off some functions into manager scripts
 
 
 
