@@ -304,13 +304,23 @@ public class BubbleGameplayManager : MonoBehaviour
     }
 
     void PlayBubblePopAudio()
-    {        
+    {      
+        
+
+
+
         // Select a random bubble pop sound from the array
         int randomIndex = Random.Range(0, bubblePopSounds.Length);
 
         // Get the name of the selected audio clip
         Debug.Log("Selected Audio Clip: " + bubblePopSounds[randomIndex].name);
-        
+
+        // Randomize the pitch of the audio clip
+        float minPitch = 0.75f;
+        float maxPitch = 1.25f;
+        audioSource.pitch = Random.Range(minPitch, maxPitch);
+
+
         //play select audio clip
         audioSource.clip = bubblePopSounds[randomIndex];
         audioSource.Play();
