@@ -118,8 +118,8 @@ public class GameStateManager : MonoBehaviour
     public void OpenCredits()   { SwitchToState(gameState_Credits); }
     public void OpenOptions()   { SwitchToState(gameState_Options); }
 
-    public void OpenMainMenu() { SwitchToState(gameState_MainMenu); }
-    public void GoBack()        {   SwitchToState(lastGameState);    }
+    public void OpenMainMenu()  { SwitchToState(gameState_MainMenu); }
+    public void GoBack()        { SwitchToState(lastGameState);    }
 
     public void Gameplay()      { SwitchToState(gameState_GamePlay); }
 

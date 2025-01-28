@@ -19,8 +19,8 @@ public class GameState_ResetGameStats : IGameState
     {
         Cursor.visible = false;
 
-        GameManager.Instance.bubbleGameplayManager.ResetGameStats();
-        GameManager.Instance.bubbleGameplayManager.tears.SetActive(false);
+        GameManager.Instance.ResetGameStats();
+        GameManager.Instance.tears.SetActive(false);
 
         // Enable all UI Panels, activates them so any scripts can get references to them if needed, each other state will disable them as needed
         GameManager.Instance.uIManager.EnableAllUIPanels();

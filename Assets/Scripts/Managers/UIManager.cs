@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 // Sam Robichaud 
 // NSCC Truro 2024
@@ -13,8 +15,15 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
 
-    [Header("Object Connections")]
-    public LevelManager levelManager;
+    [Header("Progress Bar")]
+    public Slider progressBar;
+
+    [Header("Result Popup Messages")]
+    public Canvas popupMissed;
+    public Canvas popupPerfect;
+    public Canvas popupGood;
+    public Canvas popupEarly;
+    public Canvas popupLate;
 
     // References to UI Panels
     [Header("UI Screens")]
@@ -25,10 +34,12 @@ public class UIManager : MonoBehaviour
     public GameObject optionsMenuUI;
     public GameObject creditsMenuUI;
 
-    [Header("Gameplay UI Elements")]
-    // Gameplay Specific UI Elements
-    public Text LevelCount;
+    /*
+    [Header("Object Connections")]
+    public LevelManager levelManager;
+    */
 
+    /*
     public void UpdateLevelCount(int count)
     {
         if (LevelCount != null)
@@ -37,6 +48,29 @@ public class UIManager : MonoBehaviour
         if (LevelCount = null)
         { Debug.LogError("LevelCount is not assigned to UIManager in the inspector!"); }
     }
+    */
+
+
+    public void InstantiatePopupResults(Canvas resultCanvas, Vector3 burstPosition)
+    {
+        Instantiate(resultCanvas, burstPosition, Quaternion.identity);
+    }
+
+    private void Awake()
+    {
+        Instance = this;        
+    }
+
+    public void UpdateProgressBar(float HappynessAmount)
+    {
+
+        if (progressBar != null)
+        {
+                      
+            progressBar.value = HappynessAmount;
+        }
+    }
+
 
 
     public void UIMainMenu()
@@ -69,7 +103,6 @@ public class UIManager : MonoBehaviour
         optionsMenuUI.SetActive(true);
     }
 
-
     public void UICredits()
     {
         DisableAllUIPanels();
@@ -96,7 +129,7 @@ public class UIManager : MonoBehaviour
         creditsMenuUI.SetActive(true);
     }
 
-   
+
 
 
 }
