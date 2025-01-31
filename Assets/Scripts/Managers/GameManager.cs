@@ -17,6 +17,60 @@ public class GameManager : MonoBehaviour
     [Header("Dependencies")]
     public UIManager uIManager;
     public GameStateManager gameStateManager;
+    public BubbleManager bubbleManager;
+
+    [Header("Gameplay Settings")]
+    [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float spawnRate = 1f;
+    public float bubbleSpeed = 1f;
+    public int spawnsBeforeDifficultyIncrease = 10;
+    public float bubbleSpeedChangeAmount = 0.2f;
+    public float bubbleSpawnRateChangeAmount = 0.2f;
+
+
+
+    [Header("Happyness Level change based on accuracy")]
+    public int maxScore = 1000;             // determines total range of Happyness Bar
+    public int PerfectScore = 100;          
+    public int GoodScore = 50;
+    public int EarlyLateScore = 25;
+    public int MissPenalty = -50;
+
+    [Header("Reference to BabyAnimator")]
+    public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
+    public GameObject tears; // TODO: move to an AnimationManager script
+
+    [Header("Reference to AudioSource")] // TODO: move to an AudioManager script
+    public AudioSource audioSource;
+
+    [Header("Bubble Pop Audio Clips")] // TODO: move to an AudioManager script
+    public AudioClip[] bubblePopSounds;
+
+
+    [Header("VFX Prefabs")]
+    public ParticleSystem VFXBubbleBurst;
+
+
+    [Header("Tolerances for popping accuracy")]
+    public float perfectMinPercent = 90f;       // Min percent distance to get a "Perfect" 
+    public float goodMinPercent = 40f;          // Min percent distance to get a "Good" 
+    public float earlyLateMinPercent = 0f;      // Min percent distance to get an "Early or late" 
+
+
+
+    // Private Variables
+    private float score;                        // stores the current gameplay score
+    private float happynessPercentage;          // stores the current gameplay score as a percentage of the max score
+    private Vector3 scoreZoneCenter;            // The very center of the score Zone
+    private float maxDistance;                  // The maximum distance of the score Zone (from edge to center)
+
+    //public TextMeshProUGUI resultText;        // Reference to the TextMeshPro component for displaying result
+    //public TextMeshProUGUI scoreText;         // Reference to the TextMeshPro component for displaying score
+
+    private Collider scoreZoneCollider;         // The score zone collider
+
+
+
+
 
 
     private void Awake()
@@ -32,66 +86,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         #endregion
-
-    }  
-
-
-    [Header("Points awarded based on accuracy")]
-    public int maxScore = 1000;
-    public int PerfectScore = 100;
-    public int GoodScore = 50;
-    public int EarlyLateScore = 25;
-    public int MissPenalty = -50;
-
-    [Header("Reference to BabyAnimator")]
-    public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
-
-    public GameObject tears; // TODO: move to an AnimationManager script
-
-    [Header("Reference to AudioSource")] // TODO: move to an AudioManager script
-    public AudioSource audioSource;
-
-    [Header("Bubble Pop Audio Clips")] // TODO: move to an AudioManager script
-    public AudioClip[] bubblePopSounds;
-
-
-
-
-    [Header("VFX Prefabs")]
-    public ParticleSystem VFXBubbleBurst;
-
-
-    [Header("Bubble Prefab")]
-    public GameObject bubblePrefab;
-
-    [Header("Gameplay Rows")] // TODO : move this into a spawn manager script
-    public Transform SpawnRow_00;
-    public Transform SpawnRow_01;
-    public Transform SpawnRow_02;
-    public Transform SpawnRow_03;
-
-    [Header("Tolerances for popping accuracy")]
-    public float perfectMinPercent = 90f;   // Min percent distance to get a "Perfect" 
-    public float goodMinPercent = 40f;      // Min percent distance to get a "Good" 
-    public float earlyLateMinPercent = 0f;  // Min percent distance to get an "Early or late" 
-
-
-    // Private Variables
-
-    private float score;                      // stores the current gameplay score
-    private float happynessPercentage;            // stores the current gameplay score as a percentage of the max score
-
-    private Vector3 scoreZoneCenter;        // The very center of the Burst Zone
-    private float maxDistance;              // The maximum distance of the Burst Zone
-
-    public TextMeshProUGUI resultText;      // Reference to the TextMeshPro component for displaying result
-    public TextMeshProUGUI scoreText;       // Reference to the TextMeshPro component for displaying score
-
-    private Collider scoreZoneCollider;       // The trigger zone collider
-
-    private List<GameObject>[] rows;        // List of objects for each row
-
-
+    }
 
 
     void Start()
@@ -100,24 +95,11 @@ public class GameManager : MonoBehaviour
         GameObject burstZoneObject = GameObject.FindGameObjectWithTag("BurstZone");
         scoreZoneCollider = burstZoneObject.GetComponent<Collider>();
         scoreZoneCenter = scoreZoneCollider.bounds.center;
-        maxDistance = scoreZoneCollider.bounds.extents.x; // Half of the collider width
+        maxDistance = scoreZoneCollider.bounds.extents.x;
 
-        score = maxScore / 2; // Start with half of the maximum score
-        // Delete scoreText.text = score.ToString();
-
-
-        happynessPercentage = score / maxScore; // Convert score to percentage (0 to 1)
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);
-
-        // Initialize the rows (4 rows in total)
-        rows = new List<GameObject>[4];
-        for (int i = 0; i < 4; i++)
-        {
-            rows[i] = new List<GameObject>();
-        }
-
-        // Spawn bubbles every 2 seconds
-        InvokeRepeating(nameof(SpawnBubble), 1f, 1f);
+        score = maxScore / 2;
+        happynessPercentage = score / maxScore;
+        UIManager.Instance.UpdateProgressBar(happynessPercentage);       
     }
 
     void Update()
@@ -127,6 +109,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Row 2 has " + rows[2].Count + " objects.");
         //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
 
+        // Check if the baby should be crying
         if (happynessPercentage <= 0.1f)
         {
             tears.SetActive(true);
@@ -140,67 +123,38 @@ public class GameManager : MonoBehaviour
 
 
 
-    // Calculate score and display the appropriate result
     public void CalculateScore(Vector3 bubblePosition, bool isInScoreZone)
     {
-        // Check if the bubble is NOT within the scoringZone
         if (!isInScoreZone)
         {
             UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupMissed, bubblePosition);
-            UpdateScore(MissPenalty);                  
+            UpdateScore(MissPenalty);
         }
-
-        // if the bubble is burst within the scoringZone
-        else if (isInScoreZone)
+        else
         {
-            // Calculate the horizontal distance from the Burst Zone center
             float distanceX = Mathf.Abs(scoreZoneCenter.x - bubblePosition.x);
-
-            // Calculate percentage distance relative to the maximum distance
             float percentage = Mathf.Clamp01(1 - (distanceX / maxDistance)) * 100;
 
-            // Determine the result based on percentage thresholds
             if (percentage >= perfectMinPercent)
             {
-                // PERFECT! bubble popped inside the perfect zone
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupPerfect, bubblePosition);
                 UpdateScore(PerfectScore);
             }
             else if (percentage >= goodMinPercent)
             {
-                // GOOD! bubble popped within the good zone
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupGood, bubblePosition);
-                UpdateScore(GoodScore);                
-            }
-            else if (percentage >= earlyLateMinPercent)
-            {
-                // Early or Late: check if the pop was early or late
-                if (bubblePosition.x < scoreZoneCenter.x)
-                {
-                    // LATE! bubble popped too late inside the defined zones
-                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupLate, bubblePosition);                 
-                }
-                else
-                {
-                    // EARLY! bubble popped too early inside the defined zones
-                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
-                }
-                UpdateScore(EarlyLateScore);
+                UpdateScore(GoodScore);
             }
             else
             {
-                Debug.Log("is this even getting triggered?!");
+                if (bubblePosition.x < scoreZoneCenter.x)
+                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupLate, bubblePosition);
+                else
+                    UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
 
-                // MISS! bubble popped too early or too late outside of the defined zones
-                //Missed(bubblePosition);
+                UpdateScore(EarlyLateScore);
             }
-
-
-
         }
-
-
-        
     }
 
 
@@ -208,24 +162,21 @@ public class GameManager : MonoBehaviour
 
 
 
-    void UpdateScore(int bubbleAccuracyScore)
+    public void UpdateScore(int bubbleAccuracyScore)
     {
         score += bubbleAccuracyScore;
+        happynessPercentage = score / maxScore;
 
-        happynessPercentage = score / maxScore; // Convert score to percentage (0 to 1)
-
-        // cap the top value of the score
         if (score <= 0)
         {
             score = 0;
-            //Debug.Log("You Lose!");
             GameManager.Instance.gameStateManager.GameOver();
         }
-
         else if (score > maxScore)
         {
             score = maxScore;
-        }        
+        }
+
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
         UpdateBabyAnimator();
     }
@@ -234,125 +185,55 @@ public class GameManager : MonoBehaviour
     void UpdateBabyAnimator() // TODO: Consider moving into it's own Manager Script.. although there is not much at the moment.. we may want to add more animations later
     {
         if (animator != null)
-        {
-            //Debug.Log("ScorePercentage on animator: " + scorePercentage);
+        {            
             animator.SetFloat("HappyLevel", happynessPercentage);
         }
     }
 
 
-    // Spawns a bubble at a random row
-    private void SpawnBubble()  // TODO: move this into a spawn manager script (pass in speed and spawn rate when spawning, this will allow us to adjust over time)
+
+
+
+    public void PlayBubblePopAudio() // TODO: move this into a an audioManager script
     {
-        int spawnRow = Random.Range(0, 4); // Randomly select a row (0-3)
-        Transform spawnTransform = spawnRow switch
-        {
-            0 => SpawnRow_00,
-            1 => SpawnRow_01,
-            2 => SpawnRow_02,
-            3 => SpawnRow_03,
-            _ => null
-        };
+       
+            int randomIndex = Random.Range(0, bubblePopSounds.Length);
+            audioSource.pitch = Random.Range(0.75f, 1.25f);
+            audioSource.clip = bubblePopSounds[randomIndex];
+            audioSource.Play();
+        
+    } 
 
-        if (spawnTransform != null)
-        {
-            GameObject newBubble = Instantiate(bubblePrefab, spawnTransform.position, Quaternion.identity);
-            rows[spawnRow].Add(newBubble);
-        }
-    }
-
-    private void DeleteLeftmostBubble(int rowIndex)
-    {
-        if (rows[rowIndex].Count > 0)
-        {
-            GameObject leftmostBubble = rows[rowIndex][0];
-
-            if (leftmostBubble != null) // Check if the GameObject is valid
-            {
-                // Cache necessary data before destroying the object
-                Vector3 bubblePosition = leftmostBubble.transform.position;
-                bool isInBurstZone = leftmostBubble.GetComponent<Bubble>().isInBurstZone;
-
-                // Calculate the score for the leftmost bubble
-                CalculateScore(bubblePosition, isInBurstZone);
-
-                // Remove the bubble from the list and destroy it
-                rows[rowIndex].RemoveAt(0);
-                Destroy(leftmostBubble);
-
-                // instantiate a VFX prefab at the position of the bubble
-                Instantiate(VFXBubbleBurst, bubblePosition, Quaternion.identity);
-
-                // play bubble pop Audio
-                PlayBubblePopAudio();
-            }
-        }
-    }
-
-    void PlayBubblePopAudio()
-    {
-        // Select a random bubble pop sound from the array
-        int randomIndex = Random.Range(0, bubblePopSounds.Length);
-
-        // Get the name of the selected audio clip
-        // Debug.Log("Selected Audio Clip: " + bubblePopSounds[randomIndex].name);
-
-        // Randomize the pitch of the audio clip
-        float minPitch = 0.75f;
-        float maxPitch = 1.25f;
-        audioSource.pitch = Random.Range(minPitch, maxPitch);
-
-
-        //play select audio clip
-        audioSource.clip = bubblePopSounds[randomIndex];
-        audioSource.Play();        
-    } // TODO: move this into a an audioManager script
-
+    // this gets called when ever a bubble collides with the clearing zone
     public void HandleBubbleClear(Bubble bubble)
-    {
+    {        
         // Apply the "miss" penalty
         UpdateScore(MissPenalty);
-
-        // Find and remove the bubble from its row list
-        for (int i = 0; i < rows.Length; i++)
-        {
-            if (rows[i].Contains(bubble.gameObject))
-            {
-                rows[i].Remove(bubble.gameObject);
-                break;
-            }
-        }
     }
 
 
     void OnEnable()
     {
-        // Subscribe to the Action events
-        Actions.W_KeyEvent += () => DeleteLeftmostBubble(0); // Row 0 (W key)
-        Actions.A_KeyEvent += () => DeleteLeftmostBubble(1); // Row 1 (A key)
-        Actions.S_KeyEvent += () => DeleteLeftmostBubble(2); // Row 2 (S key)
-        Actions.D_KeyEvent += () => DeleteLeftmostBubble(3); // Row 3 (D key)
+        Actions.W_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(0);
+        Actions.A_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(1);
+        Actions.S_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(2);
+        Actions.D_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(3);
     }
 
     void OnDisable()
     {
-        // Unsubscribe from the Action events to prevent memory leaks
-        Actions.W_KeyEvent -= () => DeleteLeftmostBubble(0);
-        Actions.A_KeyEvent -= () => DeleteLeftmostBubble(1);
-        Actions.S_KeyEvent -= () => DeleteLeftmostBubble(2);
-        Actions.D_KeyEvent -= () => DeleteLeftmostBubble(3);
+        Actions.W_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(0);
+        Actions.A_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(1);
+        Actions.S_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(2);
+        Actions.D_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(3);
     }
 
-
-    //reset the game stats
     public void ResetGameStats()
     {
-        score = maxScore / 2; // Start with half of the maximum score
-        
-        happynessPercentage = score / maxScore; // Convert score to percentage (0 to 1)
+        score = maxScore / 2;
+        happynessPercentage = score / maxScore;
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
         UpdateBabyAnimator();
-        
     }
 
 

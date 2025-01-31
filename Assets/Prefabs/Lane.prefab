@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 4424584650117119429}
   - component: {fileID: 783639996188311484}
   m_Layer: 0
-  m_Name: SpawnRow
+  m_Name: Lane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

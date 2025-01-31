@@ -5,22 +5,21 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float bubbleSpeed = 1f;
     [SerializeField] public bool isInBurstZone = false;
 
-    [SerializeField] private GameManager gameManager; // Reference to the BubbleBurstZone script
+ 
 
     void Start()
     {
-        // Find the BubbleBurstZone script in the scene
-        gameManager = FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         // Move the bubble to the left
-        this.transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        this.transform.Translate(Vector3.left * bubbleSpeed * Time.deltaTime);
     }
 
    
@@ -33,9 +32,8 @@ public class Bubble : MonoBehaviour
         }
         else if (other.CompareTag("Clearer")) // When it collides with the Clearer
         {
-            // Notify the Gameplay Manager to handle the "miss"
-            gameManager.HandleBubbleClear(this);
-
+            // Notify the Gameplay Manager to apply the score for a miss
+            GameManager.Instance.HandleBubbleClear(this);
             // Destroy the bubble object
             Destroy(gameObject);
         }
@@ -48,8 +46,10 @@ public class Bubble : MonoBehaviour
         }
     }
 
-
-
+    internal void SetSpeed(float spawnSpeed)
+    {
+        bubbleSpeed = spawnSpeed;
+    }
 }
 
 
