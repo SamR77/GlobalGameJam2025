@@ -34,23 +34,6 @@ public class UIManager : MonoBehaviour
     public GameObject optionsMenuUI;
     public GameObject creditsMenuUI;
 
-    /*
-    [Header("Object Connections")]
-    public LevelManager levelManager;
-    */
-
-    /*
-    public void UpdateLevelCount(int count)
-    {
-        if (LevelCount != null)
-        { LevelCount.text = count.ToString(); }
-
-        if (LevelCount = null)
-        { Debug.LogError("LevelCount is not assigned to UIManager in the inspector!"); }
-    }
-    */
-
-
     public void InstantiatePopupResults(Canvas resultCanvas, Vector3 burstPosition)
     {
         Instantiate(resultCanvas, burstPosition, Quaternion.identity);
@@ -70,8 +53,6 @@ public class UIManager : MonoBehaviour
             progressBar.value = HappynessAmount;
         }
     }
-
-
 
     public void UIMainMenu()
     {

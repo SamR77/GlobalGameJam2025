@@ -19,7 +19,12 @@ public class GameState_GamePlay : IGameState
         Cursor.visible = false;
         GameManager.Instance.uIManager.UIGamePlay();
         Actions.PauseEvent += OnPause;
-        //GameManager.Instance.playerManager.player.SetActive(true);
+
+        GameManager.Instance.GameReset();
+
+
+        GameManager.Instance.bubbleManager.StartSpawning(); // Add this line
+   
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }

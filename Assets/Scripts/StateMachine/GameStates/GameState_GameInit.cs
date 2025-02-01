@@ -12,15 +12,16 @@ public class GameState_GameInit : IGameState
 
     public void EnterState(GameStateManager gameStateManager)
     {
-        Cursor.visible = false;
+        Cursor.visible = false;        
 
         // Enable all UI Panels, activates them so any scripts can get references to them if needed, each other state will disable them as needed
         GameManager.Instance.uIManager.EnableAllUIPanels();
 
+        // Reset the game
+        GameManager.Instance.GameReset();
+
         // Switch to MainMenu state
         GameManager.Instance.gameStateManager.SwitchToState(new GameState_MainMenu());
-
-
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }

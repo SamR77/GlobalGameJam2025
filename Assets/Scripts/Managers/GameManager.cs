@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +21,10 @@ public class GameManager : MonoBehaviour
     public BubbleManager bubbleManager;
 
     [Header("Gameplay Settings")]
-    [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float spawnRate = 1f;
-    public float bubbleSpeed = 1f;
-    public int spawnsBeforeDifficultyIncrease = 10;
-    public float bubbleSpeedChangeAmount = 0.2f;
+    public float bubbleStartingSpeed = 2f;
+    [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float bubbleStartingSpawnRate = 2f;
+    public int bubbleSpawnsBeforeDifficultyIncrease = 10;
+    public float bubbleSpeedChangeAmount = 0.1f;
     public float bubbleSpawnRateChangeAmount = 0.2f;
 
 
@@ -228,6 +229,7 @@ public class GameManager : MonoBehaviour
         Actions.D_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(3);
     }
 
+    /*
     public void ResetGameStats()
     {
         score = maxScore / 2;
@@ -235,6 +237,44 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
         UpdateBabyAnimator();
     }
+    */
+
+
+
+    public void GameReset()
+    {
+        // Reset core game stats
+        score = maxScore / 2;
+        happynessPercentage = score / maxScore;
+
+        // Reset difficulty settings
+        bubbleStartingSpeed = 2f;  // Reset to initial values
+        bubbleStartingSpawnRate = 2f;
+
+        // Reset UI
+        UIManager.Instance.UpdateProgressBar(happynessPercentage);
+        tears.SetActive(false);
+
+        // Update baby animator
+        UpdateBabyAnimator();
+
+        // Clear all existing bubbles
+        for (int i = 0; i < BubbleManager.Instance.spawnLanes.Length; i++)
+        {
+            foreach (GameObject bubble in BubbleManager.Instance.lanes[i].ToList())
+            {
+                if (bubble != null)
+                {
+                    Destroy(bubble);
+                }
+            }
+            BubbleManager.Instance.lanes[i].Clear();
+        }
+
+        // Reset bubble spawn count and restart spawning
+        BubbleManager.Instance.ResetSpawnCount();        
+    }
+
 
 
 }

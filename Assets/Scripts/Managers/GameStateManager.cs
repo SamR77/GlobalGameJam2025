@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
+
+
     [Header("Debug (read only)")]
     [SerializeField] private string lastActiveState;
     [SerializeField] private string currentActiveState;
@@ -25,7 +27,6 @@ public class GameStateManager : MonoBehaviour
 
     // Instantiate game state objects
     public GameState_GameInit gameState_GameInit = new GameState_GameInit();
-    public GameState_ResetGameStats gameState_ResetGameStats = new GameState_ResetGameStats();
     public GameState_MainMenu gameState_MainMenu = new GameState_MainMenu();
     public GameState_GamePlay gameState_GamePlay = new GameState_GamePlay();
     public GameState_GameOver gameState_GameOver = new GameState_GameOver();
@@ -37,10 +38,7 @@ public class GameStateManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
-
-
+    {   
         // Sets currentGameState to GameInitState when GameStateManager is initialized / first loaded
         // GameInitState is responsible for initializing/resetting the game
         currentGameState = gameState_GameInit;
@@ -114,16 +112,18 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    public void GameOver()      { SwitchToState(gameState_GameOver); }
-    public void OpenCredits()   { SwitchToState(gameState_Credits); }
-    public void OpenOptions()   { SwitchToState(gameState_Options); }
 
-    public void OpenMainMenu()  { SwitchToState(gameState_MainMenu); }
-    public void GoBack()        { SwitchToState(lastGameState);    }
+    public void GameInit()      { SwitchToState(gameState_GameInit);    }
+    public void GameOver()      { SwitchToState(gameState_GameOver);    }
+    public void OpenCredits()   { SwitchToState(gameState_Credits);     }
+    public void OpenOptions()   { SwitchToState(gameState_Options);     }
+    public void OpenMainMenu()  { SwitchToState(gameState_MainMenu);    }
+    public void GoBack()        { SwitchToState(lastGameState);         }
+    public void Gameplay()      { SwitchToState(gameState_GamePlay);    }
 
-    public void Gameplay()      { SwitchToState(gameState_GamePlay); }
+ 
 
-    public void ResetGameStats() { SwitchToState(gameState_ResetGameStats); }
+
 
 
 

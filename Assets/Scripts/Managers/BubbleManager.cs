@@ -10,19 +10,20 @@ public class BubbleManager : MonoBehaviour
     [Header("Bubble Settings")]
     public GameObject bubblePrefab;
 
-   
 
-    [Header("Spawn Rows")]
-    public Transform[] spawnRows; // Array of 4 spawn positions
+    [Header("Spawn Lanes")]
+    public Transform[] spawnLanes; // Array of 4 spawn positions
 
     private float bubbleSpeed;
     private float spawnRate;
     private int spawnsBeforeChange;
     private float bubbleSpeedChangeAmount = 0.2f;
     private float bubbleSpawnRateChangeAmount = 0.2f;
+    private float minimumSpawnRate = 0.5f; // set minimum spawn rate, if it goes to zero it cause infinite spawning and break the game.
 
-    private List<GameObject>[] rows;
-    private int spawnCount = 0;
+    public List<GameObject>[] lanes;
+    public int spawnCount = 0;
+    private Coroutine activeSpawnCoroutine;
 
     private void Awake()
     {
@@ -38,58 +39,84 @@ public class BubbleManager : MonoBehaviour
 
     void Start()
     {
-        bubbleSpeed = GameManager.Instance.bubbleSpeed;
-        spawnRate = GameManager.Instance.spawnRate;
-        spawnsBeforeChange = GameManager.Instance.spawnsBeforeDifficultyIncrease;
+        bubbleSpeed = GameManager.Instance.bubbleStartingSpeed;
+        spawnRate = GameManager.Instance.bubbleStartingSpawnRate;
+        spawnsBeforeChange = GameManager.Instance.bubbleSpawnsBeforeDifficultyIncrease;
         bubbleSpeedChangeAmount = GameManager.Instance.bubbleSpeedChangeAmount;
         bubbleSpawnRateChangeAmount = GameManager.Instance.bubbleSpawnRateChangeAmount;
 
 
-    rows = new List<GameObject>[spawnRows.Length];
-        for (int i = 0; i < rows.Length; i++)
+        lanes = new List<GameObject>[spawnLanes.Length];
+        for (int i = 0; i < lanes.Length; i++)
         {
-            rows[i] = new List<GameObject>();
+            lanes[i] = new List<GameObject>();
         }
-
-        StartCoroutine(SpawnBubbles());
     }
 
-    IEnumerator SpawnBubbles()
+    public void StartSpawning()
+    {
+        StopSpawning();
+        activeSpawnCoroutine = StartCoroutine(SpawnBubbles());
+    }
+
+    public void StopSpawning()
+    {
+        if (activeSpawnCoroutine != null)
+        {
+            StopCoroutine(activeSpawnCoroutine);
+            activeSpawnCoroutine = null;
+        }
+    }
+
+    private void IncreaseDifficulty()
+    {
+        // Increase bubble speed
+        bubbleSpeed += bubbleSpeedChangeAmount;
+
+        // Decrease spawn rate but ensure it doesn't go below minimum
+        float newSpawnRate = spawnRate - bubbleSpawnRateChangeAmount;
+        spawnRate = Mathf.Max(newSpawnRate, minimumSpawnRate);
+
+        // Log difficulty changes for debugging
+        Debug.Log($"Difficulty increased - Speed: {bubbleSpeed}, Spawn Rate: {spawnRate}");
+    }
+
+    public IEnumerator SpawnBubbles()
     {
         while (true)
         {
+            yield return new WaitForSeconds(spawnRate);
             SpawnBubble();
             spawnCount++;
 
             // Adjust difficulty every X spawns
             if (spawnCount % spawnsBeforeChange == 0)
             {
-                bubbleSpeed += bubbleSpeedChangeAmount;
-                spawnRate -= bubbleSpawnRateChangeAmount;
+                IncreaseDifficulty();
             }
-
-            yield return new WaitForSeconds(spawnRate);
         }
     }
 
+
+
     void SpawnBubble()
     {
-        int spawnRow = Random.Range(0, spawnRows.Length);
-        Transform spawnTransform = spawnRows[spawnRow];
+        int spawnLane = Random.Range(0, spawnLanes.Length);
+        Transform spawnTransform = spawnLanes[spawnLane];
 
         if (spawnTransform != null)
         {
             GameObject newBubble = Instantiate(bubblePrefab, spawnTransform.position, Quaternion.identity);
             newBubble.GetComponent<Bubble>().SetSpeed(bubbleSpeed);
-            rows[spawnRow].Add(newBubble);
+            lanes[spawnLane].Add(newBubble);
         }
     }
 
     public void DeleteLeftmostBubble(int rowIndex)
     {
-        if (rows[rowIndex].Count > 0)
+        if (lanes[rowIndex].Count > 0)
         {
-            GameObject leftmostBubble = rows[rowIndex][0];
+            GameObject leftmostBubble = lanes[rowIndex][0];
 
             if (leftmostBubble != null)
             {
@@ -99,12 +126,17 @@ public class BubbleManager : MonoBehaviour
                 // Score calculation handled by GameManager
                 GameManager.Instance.CalculateScore(bubblePosition, isInBurstZone);
 
-                rows[rowIndex].RemoveAt(0);
+                lanes[rowIndex].RemoveAt(0);
                 Destroy(leftmostBubble);
 
                 Instantiate(GameManager.Instance.VFXBubbleBurst, bubblePosition, Quaternion.identity);
                 GameManager.Instance.PlayBubblePopAudio();
             }
         }
+    }
+
+    internal void ResetSpawnCount()
+    {
+        spawnCount = 0;
     }
 }
