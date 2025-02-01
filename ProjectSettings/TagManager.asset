@@ -6,6 +6,8 @@ TagManager:
   tags:
   - BurstZone
   - Clearer
+  - ResultsPopup
+  - BubblePopVFX
   layers:
   - Default
   - TransparentFX

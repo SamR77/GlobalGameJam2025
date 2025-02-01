@@ -1709,6 +1709,12 @@ MonoBehaviour:
   - {fileID: 1176519087}
   - {fileID: 1516532753}
   - {fileID: 176920687}
+  bubbleSpeed: 0
+  spawnRate: 0
+  spawnsBeforeChange: 0
+  bubbleSpeedChangeAmount: 0.2
+  bubbleSpawnRateChangeAmount: 0.2
+  minimumSpawnRate: 0.5
   spawnCount: 0
 --- !u!1 &684259781
 GameObject:
@@ -1941,9 +1947,13 @@ MonoBehaviour:
   bubbleManager: {fileID: 631844572}
   bubbleStartingSpeed: 2
   bubbleStartingSpawnRate: 2
-  bubbleSpawnsBeforeDifficultyIncrease: 10
   bubbleSpeedChangeAmount: 0.1
   bubbleSpawnRateChangeAmount: 0.2
+  bubbleSpawnsBeforeDifficultyIncrease: 10
+  cachedBubbleStartingSpeed: 0
+  cachedBubbleStartingSpawnRate: 0
+  cachedBubbleSpeedChangeAmount: 0
+  cachedBubbleSpawnRateChangeAmount: 0
   maxScore: 1000
   PerfectScore: 100
   GoodScore: 50
@@ -9630,7 +9640,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 247126392}
         m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
-        m_MethodName: Gameplay
+        m_MethodName: GameInit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10950,7 +10960,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 247126392}
         m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
-        m_MethodName: Gameplay
+        m_MethodName: GameInit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

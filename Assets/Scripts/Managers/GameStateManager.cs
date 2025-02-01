@@ -41,7 +41,7 @@ public class GameStateManager : MonoBehaviour
     {   
         // Sets currentGameState to GameInitState when GameStateManager is initialized / first loaded
         // GameInitState is responsible for initializing/resetting the game
-        currentGameState = gameState_GameInit;
+        currentGameState = gameState_MainMenu;
 
         // Enter the initial game state
         currentGameState.EnterState(this);
@@ -113,6 +113,11 @@ public class GameStateManager : MonoBehaviour
     }
 
 
+
+
+
+
+
     public void GameInit()      { SwitchToState(gameState_GameInit);    }
     public void GameOver()      { SwitchToState(gameState_GameOver);    }
     public void OpenCredits()   { SwitchToState(gameState_Credits);     }
@@ -121,7 +126,7 @@ public class GameStateManager : MonoBehaviour
     public void GoBack()        { SwitchToState(lastGameState);         }
     public void Gameplay()      { SwitchToState(gameState_GamePlay);    }
 
- 
+
 
 
 

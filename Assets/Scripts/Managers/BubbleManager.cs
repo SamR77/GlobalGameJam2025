@@ -14,12 +14,12 @@ public class BubbleManager : MonoBehaviour
     [Header("Spawn Lanes")]
     public Transform[] spawnLanes; // Array of 4 spawn positions
 
-    private float bubbleSpeed;
-    private float spawnRate;
-    private int spawnsBeforeChange;
-    private float bubbleSpeedChangeAmount = 0.2f;
-    private float bubbleSpawnRateChangeAmount = 0.2f;
-    private float minimumSpawnRate = 0.5f; // set minimum spawn rate, if it goes to zero it cause infinite spawning and break the game.
+    public float bubbleSpeed;
+    public float spawnRate;
+    public int spawnsBeforeChange;
+    public float bubbleSpeedChangeAmount;
+    public float bubbleSpawnRateChangeAmount;
+    public float minimumSpawnRate = 0.5f; // set minimum spawn rate, if it goes to zero it cause infinite spawning and break the game.
 
     public List<GameObject>[] lanes;
     public int spawnCount = 0;
@@ -39,18 +39,21 @@ public class BubbleManager : MonoBehaviour
 
     void Start()
     {
-        bubbleSpeed = GameManager.Instance.bubbleStartingSpeed;
-        spawnRate = GameManager.Instance.bubbleStartingSpawnRate;
-        spawnsBeforeChange = GameManager.Instance.bubbleSpawnsBeforeDifficultyIncrease;
-        bubbleSpeedChangeAmount = GameManager.Instance.bubbleSpeedChangeAmount;
-        bubbleSpawnRateChangeAmount = GameManager.Instance.bubbleSpawnRateChangeAmount;
-
-
         lanes = new List<GameObject>[spawnLanes.Length];
         for (int i = 0; i < lanes.Length; i++)
         {
             lanes[i] = new List<GameObject>();
         }
+        initializeBubbleStats();
+    }
+
+    public void initializeBubbleStats()
+    {
+        bubbleSpeed = GameManager.Instance.bubbleStartingSpeed;
+        spawnRate = GameManager.Instance.bubbleStartingSpawnRate;
+        spawnsBeforeChange = GameManager.Instance.bubbleSpawnsBeforeDifficultyIncrease;
+        bubbleSpeedChangeAmount = GameManager.Instance.bubbleSpeedChangeAmount;
+        bubbleSpawnRateChangeAmount = GameManager.Instance.bubbleSpawnRateChangeAmount;
     }
 
     public void StartSpawning()

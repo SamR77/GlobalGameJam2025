@@ -21,11 +21,18 @@ public class GameManager : MonoBehaviour
     public BubbleManager bubbleManager;
 
     [Header("Gameplay Settings")]
-    public float bubbleStartingSpeed = 2f;
-    [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float bubbleStartingSpawnRate = 2f;
+    public float bubbleStartingSpeed = 2f;    
+    [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float bubbleStartingSpawnRate = 2f;    
+    public float bubbleSpeedChangeAmount = 0.1f;    
+    public float bubbleSpawnRateChangeAmount = 0.2f;    
     public int bubbleSpawnsBeforeDifficultyIncrease = 10;
-    public float bubbleSpeedChangeAmount = 0.1f;
-    public float bubbleSpawnRateChangeAmount = 0.2f;
+
+    // Cached values for resetting game
+    public float cachedBubbleStartingSpeed;
+    public float cachedBubbleStartingSpawnRate;
+    public float cachedBubbleSpeedChangeAmount;
+    public float cachedBubbleSpawnRateChangeAmount;
+
 
 
 
@@ -69,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private Collider scoreZoneCollider;         // The score zone collider
 
-
+   
 
 
 
@@ -87,6 +94,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         #endregion
+
+        // Cache the starting stats
+        cachedBubbleStartingSpeed = bubbleStartingSpeed;
+        cachedBubbleStartingSpawnRate = bubbleStartingSpawnRate;
+        cachedBubbleSpeedChangeAmount = bubbleSpeedChangeAmount;
+        cachedBubbleSpawnRateChangeAmount = bubbleSpawnRateChangeAmount;
     }
 
 
@@ -100,7 +113,12 @@ public class GameManager : MonoBehaviour
 
         score = maxScore / 2;
         happynessPercentage = score / maxScore;
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);       
+        UIManager.Instance.UpdateProgressBar(happynessPercentage);  
+        
+
+        
+
+
     }
 
     void Update()
@@ -229,27 +247,20 @@ public class GameManager : MonoBehaviour
         Actions.D_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(3);
     }
 
-    /*
-    public void ResetGameStats()
-    {
-        score = maxScore / 2;
-        happynessPercentage = score / maxScore;
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);
-        UpdateBabyAnimator();
-    }
-    */
-
-
-
     public void GameReset()
     {
         // Reset core game stats
         score = maxScore / 2;
         happynessPercentage = score / maxScore;
 
-        // Reset difficulty settings
-        bubbleStartingSpeed = 2f;  // Reset to initial values
-        bubbleStartingSpawnRate = 2f;
+        // Reset bubble stats to cached values
+        bubbleStartingSpeed = cachedBubbleStartingSpeed;
+        bubbleStartingSpawnRate = cachedBubbleStartingSpawnRate;
+        bubbleSpeedChangeAmount = cachedBubbleSpeedChangeAmount;
+        bubbleSpawnRateChangeAmount = cachedBubbleSpawnRateChangeAmount;
+
+        // Initialize all stat values in BubbleManager
+        BubbleManager.Instance.initializeBubbleStats();
 
         // Reset UI
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
@@ -272,7 +283,16 @@ public class GameManager : MonoBehaviour
         }
 
         // Reset bubble spawn count and restart spawning
-        BubbleManager.Instance.ResetSpawnCount();        
+        BubbleManager.Instance.ResetSpawnCount();  
+        
+        // Clear all existing popups
+        UIManager.Instance.ClearResultsPopups();
+
+        // Clear all existing bubbleVFX's
+        UIManager.Instance.ClearBubbleVFX();
+
+
+
     }
 
 

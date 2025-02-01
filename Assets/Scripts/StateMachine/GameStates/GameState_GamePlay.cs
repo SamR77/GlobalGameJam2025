@@ -18,9 +18,7 @@ public class GameState_GamePlay : IGameState
         Time.timeScale = 1f;
         Cursor.visible = false;
         GameManager.Instance.uIManager.UIGamePlay();
-        Actions.PauseEvent += OnPause;
-
-        GameManager.Instance.GameReset();
+        Actions.PauseEvent += OnPause;       
 
 
         GameManager.Instance.bubbleManager.StartSpawning(); // Add this line

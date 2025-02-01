@@ -20,8 +20,8 @@ public class GameState_GameInit : IGameState
         // Reset the game
         GameManager.Instance.GameReset();
 
-        // Switch to MainMenu state
-        GameManager.Instance.gameStateManager.SwitchToState(new GameState_MainMenu());
+        // Switch to Gameplay State
+        GameManager.Instance.gameStateManager.SwitchToState(new GameState_GamePlay() );
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }

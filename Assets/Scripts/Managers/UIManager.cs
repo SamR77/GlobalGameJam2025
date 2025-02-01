@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using System;
 
 // Sam Robichaud 
 // NSCC Truro 2024
@@ -110,7 +111,24 @@ public class UIManager : MonoBehaviour
         creditsMenuUI.SetActive(true);
     }
 
+    internal void ClearResultsPopups()
+    {
+        // find all objects in scene with tag "ResultsPopup" and destroy them
+        GameObject[] popups = GameObject.FindGameObjectsWithTag("ResultsPopup");
+        foreach (GameObject popup in popups)
+        {
+            Destroy(popup);
+        }
+    }
 
+    internal void ClearBubbleVFX()
+    {
+        // find all objects in scene with tag "BubblePopVFX" and destroy them
+        GameObject[] popups = GameObject.FindGameObjectsWithTag("BubblePopVFX");
+        foreach (GameObject popup in popups)
+        {
+            Destroy(popup);
+        }
 
-
+    }
 }
