@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -8,48 +5,42 @@ public class Bubble : MonoBehaviour
     [SerializeField] private float bubbleSpeed = 1f;
     [SerializeField] public bool isInBurstZone = false;
 
- 
+    public int LaneIndex { get; private set; } // Store the lane index
 
-    void Start()
+    public void InitializeBubble(float speed, int laneIndex)
     {
-
+        bubbleSpeed = speed;
+        LaneIndex = laneIndex;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Move the bubble to the left
         this.transform.Translate(Vector3.left * bubbleSpeed * Time.deltaTime);
     }
 
-   
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("BurstZone")) // Check if the bubble enters the BurstZone trigger zone
+        if (other.CompareTag("BurstZone"))
         {
             isInBurstZone = true;
         }
-        else if (other.CompareTag("Clearer")) // When it collides with the Clearer
+        if (other.CompareTag("EndOfLaneClearer"))
         {
-            // Notify the Gameplay Manager to apply the score for a miss
-            GameManager.Instance.HandleBubbleClear(this);
-            // Destroy the bubble object
-            Destroy(gameObject);
+            // bubble has reached the end of the lane 
+            BubbleManager.Instance.HandleBubble(other.transform.position, LaneIndex, false);
+            // Consider playing a different sound effect for a missed bubble
+
         }
     }
+
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("BurstZone")) // Check if the bubble enters the BurstZone trigger zone
+        if (other.CompareTag("BurstZone"))
         {
             isInBurstZone = false;
         }
     }
 
-    internal void SetSpeed(float spawnSpeed)
-    {
-        bubbleSpeed = spawnSpeed;
-    }
+
 }
-
-

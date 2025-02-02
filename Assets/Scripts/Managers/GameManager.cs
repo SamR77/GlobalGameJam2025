@@ -34,9 +34,6 @@ public class GameManager : MonoBehaviour
     public float cachedBubbleSpeedChangeAmount;
     public float cachedBubbleSpawnRateChangeAmount;
 
-
-
-
     [Header("Happyness Level change based on accuracy")]
     public int maxScore = 1000;             // determines total range of Happyness Bar
     public int PerfectScore = 100;          
@@ -48,14 +45,8 @@ public class GameManager : MonoBehaviour
     public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
     public GameObject tears; // TODO: move to an AnimationManager script
 
-
-
-   
-
-
     [Header("VFX Prefabs")]
     public ParticleSystem VFXBubbleBurst;
-
 
     [Header("Tolerances for popping accuracy")]
     public float perfectMinPercent = 90f;       // Min percent distance to get a "Perfect" 
@@ -70,16 +61,8 @@ public class GameManager : MonoBehaviour
     private Vector3 scoreZoneCenter;            // The very center of the score Zone
     private float maxDistance;                  // The maximum distance of the score Zone (from edge to center)
 
-    //public TextMeshProUGUI resultText;        // Reference to the TextMeshPro component for displaying result
-    //public TextMeshProUGUI scoreText;         // Reference to the TextMeshPro component for displaying score
-
     private Collider scoreZoneCollider;         // The score zone collider
-
-   
-
-
-
-
+       
     private void Awake()
     {
         #region Singleton Pattern
@@ -100,7 +83,6 @@ public class GameManager : MonoBehaviour
         cachedBubbleSpeedChangeAmount = bubbleSpeedChangeAmount;
         cachedBubbleSpawnRateChangeAmount = bubbleSpawnRateChangeAmount;
     }
-
 
     void Start()
     {
@@ -219,6 +201,8 @@ public class GameManager : MonoBehaviour
     {        
         // Apply the "miss" penalty
         UpdateScore(MissPenalty);
+
+        //TODO: Expand this to also play SFX, or tie it into the regular Popping call
     }
 
 
@@ -251,7 +235,7 @@ public class GameManager : MonoBehaviour
         bubbleSpawnRateChangeAmount = cachedBubbleSpawnRateChangeAmount;
 
         // Initialize all stat values in BubbleManager
-        BubbleManager.Instance.initializeBubbleStats();
+        BubbleManager.Instance.InitializeBubbleStats();
 
         // Reset UI
         UIManager.Instance.UpdateProgressBar(happynessPercentage);
