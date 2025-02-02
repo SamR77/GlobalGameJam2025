@@ -16,8 +16,10 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
 
-    [Header("Progress Bar")]
-    public Slider progressBar;
+    [Header("Progress Bars")]
+    public Slider primaryHappinessBar;      // Primary bar that updates immediately
+    public Slider secondaryHappinessBar;    // Secondary bar that lerps
+
 
     [Header("Result Popup Messages")]
     public Canvas popupMissed;
@@ -46,15 +48,39 @@ public class UIManager : MonoBehaviour
         Instantiate(resultCanvas, burstPosition, Quaternion.identity);
     }
 
-    public void UpdateProgressBar(float HappynessAmount)
+    public void UpdateProgressBar(float targetHappinessAmount)
     {
+        
 
-        if (progressBar != null)
+        if (primaryHappinessBar != null)
         {
-                      
-            progressBar.value = HappynessAmount;
+            primaryHappinessBar.value = targetHappinessAmount;
+        }
+        if (secondaryHappinessBar != null)
+        {
+            // Start lerping the secondary progress bar
+            StartCoroutine(LerpSecondaryProgressBar(secondaryHappinessBar.value, targetHappinessAmount));
         }
     }
+
+    private IEnumerator LerpSecondaryProgressBar(float startValue, float targetValue)
+    {
+        float timeElapsed = 0f; // Time elapsed for lerping
+        float lerpDuration = 1f; // Duration of the lerp (in seconds)
+
+        while (timeElapsed < lerpDuration)
+        {
+            // Lerp between the current and target value for the secondary progress bar
+            secondaryHappinessBar.value = Mathf.Lerp(startValue, targetValue, timeElapsed / lerpDuration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the secondary progress bar ends exactly at the target value
+        secondaryHappinessBar.value = targetValue;
+    }
+
+
 
     public void UIMainMenu()
     {

@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
     public float cachedBubbleSpawnRateChangeAmount;
 
     [Header("Happyness Level change based on accuracy")]
-    public int maxScore = 1000;             // determines total range of Happyness Bar
-    public int PerfectScore = 100;          
-    public int GoodScore = 50;
-    public int EarlyLateScore = 25;
-    public int MissPenalty = -50;
+    public int maxHappinessPoints = 1000;             // determines total range of Happyness Bar
+    public int perfectTimingAward = 100;          
+    public int goodTimingAward = 50;
+    public int earlyLateTimingAward = 25;
+    public int missPenalty = -50;
 
     [Header("Reference to BabyAnimator")]
     public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
@@ -54,10 +54,9 @@ public class GameManager : MonoBehaviour
     public float earlyLateMinPercent = 0f;      // Min percent distance to get an "Early or late" 
 
 
-
     // Private Variables
-    private float score;                        // stores the current gameplay score
-    private float happynessPercentage;          // stores the current gameplay score as a percentage of the max score
+    private float happinessPoints;                        // stores the current gameplay score
+    private float happinessPercentage;          // stores the current gameplay score as a percentage of the max score
     private Vector3 scoreZoneCenter;            // The very center of the score Zone
     private float maxDistance;                  // The maximum distance of the score Zone (from edge to center)
 
@@ -92,9 +91,9 @@ public class GameManager : MonoBehaviour
         scoreZoneCenter = scoreZoneCollider.bounds.center;
         maxDistance = scoreZoneCollider.bounds.extents.x;
 
-        score = maxScore / 2;
-        happynessPercentage = score / maxScore;
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);  
+        happinessPoints = maxHappinessPoints / 2;
+        happinessPercentage = happinessPoints / maxHappinessPoints;
+        UIManager.Instance.UpdateProgressBar(happinessPercentage);  
         
 
         
@@ -110,7 +109,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Row 3 has " + rows[3].Count + " objects.");
 
         // Check if the baby should be crying
-        if (happynessPercentage <= 0.1f)
+        if (happinessPercentage <= 0.1f)
         {
             tears.SetActive(true);
         }
@@ -121,14 +120,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     public void CalculateScore(Vector3 bubblePosition, bool isInScoreZone)
     {
         if (!isInScoreZone)
         {
             UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupMissed, bubblePosition);
-            UpdateScore(MissPenalty);
+            UpdateScore(missPenalty);
         }
         else
         {
@@ -138,12 +135,12 @@ public class GameManager : MonoBehaviour
             if (percentage >= perfectMinPercent)
             {
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupPerfect, bubblePosition);
-                UpdateScore(PerfectScore);
+                UpdateScore(perfectTimingAward);
             }
             else if (percentage >= goodMinPercent)
             {
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupGood, bubblePosition);
-                UpdateScore(GoodScore);
+                UpdateScore(goodTimingAward);
             }
             else
             {
@@ -152,32 +149,28 @@ public class GameManager : MonoBehaviour
                 else
                     UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
 
-                UpdateScore(EarlyLateScore);
+                UpdateScore(earlyLateTimingAward);
             }
         }
     }
 
 
-
-
-
-
     public void UpdateScore(int bubbleAccuracyScore)
     {
-        score += bubbleAccuracyScore;
-        happynessPercentage = score / maxScore;
+        happinessPoints += bubbleAccuracyScore;
+        happinessPercentage = happinessPoints / maxHappinessPoints;
 
-        if (score <= 0)
+        if (happinessPoints <= 0)
         {
-            score = 0;
+            happinessPoints = 0;
             GameManager.Instance.gameStateManager.GameOver();
         }
-        else if (score > maxScore)
+        else if (happinessPoints > maxHappinessPoints)
         {
-            score = maxScore;
+            happinessPoints = maxHappinessPoints;
         }
 
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);
+        UIManager.Instance.UpdateProgressBar(happinessPercentage);
         UpdateBabyAnimator();
     }
 
@@ -186,47 +179,15 @@ public class GameManager : MonoBehaviour
     {
         if (animator != null)
         {            
-            animator.SetFloat("HappyLevel", happynessPercentage);
+            animator.SetFloat("HappyLevel", happinessPercentage);
         }
-    }
-
-
-
-
-
-    
-
-    // this gets called when ever a bubble collides with the clearing zone
-    public void HandleBubbleClear(Bubble bubble)
-    {        
-        // Apply the "miss" penalty
-        UpdateScore(MissPenalty);
-
-        //TODO: Expand this to also play SFX, or tie it into the regular Popping call
-    }
-
-
-    void OnEnable()
-    {
-        Actions.W_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(0);
-        Actions.A_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(1);
-        Actions.S_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(2);
-        Actions.D_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(3);
-    }
-
-    void OnDisable()
-    {
-        Actions.W_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(0);
-        Actions.A_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(1);
-        Actions.S_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(2);
-        Actions.D_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(3);
     }
 
     public void GameReset()
     {
         // Reset core game stats
-        score = maxScore / 2;
-        happynessPercentage = score / maxScore;
+        happinessPoints = maxHappinessPoints / 2;
+        happinessPercentage = happinessPoints / maxHappinessPoints;
 
         // Reset bubble stats to cached values
         bubbleStartingSpeed = cachedBubbleStartingSpeed;
@@ -238,7 +199,7 @@ public class GameManager : MonoBehaviour
         BubbleManager.Instance.InitializeBubbleStats();
 
         // Reset UI
-        UIManager.Instance.UpdateProgressBar(happynessPercentage);
+        UIManager.Instance.UpdateProgressBar(happinessPercentage);
         tears.SetActive(false);
 
         // Update baby animator
@@ -270,6 +231,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void OnEnable()
+    {
+        Actions.W_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(0);
+        Actions.A_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(1);
+        Actions.S_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(2);
+        Actions.D_KeyEvent += () => bubbleManager.DeleteLeftmostBubble(3);
+    }
+
+    void OnDisable()
+    {
+        Actions.W_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(0);
+        Actions.A_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(1);
+        Actions.S_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(2);
+        Actions.D_KeyEvent -= () => bubbleManager.DeleteLeftmostBubble(3);
+    }
 
 
 }
