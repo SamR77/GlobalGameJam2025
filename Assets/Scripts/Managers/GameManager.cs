@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public UIManager uIManager;
     public GameStateManager gameStateManager;
     public BubbleManager bubbleManager;
+    public AudioManager audioManager;
 
     [Header("Gameplay Settings")]
     public float bubbleStartingSpeed = 2f;    
@@ -47,11 +48,9 @@ public class GameManager : MonoBehaviour
     public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
     public GameObject tears; // TODO: move to an AnimationManager script
 
-    [Header("Reference to AudioSource")] // TODO: move to an AudioManager script
-    public AudioSource audioSource;
 
-    [Header("Bubble Pop Audio Clips")] // TODO: move to an AudioManager script
-    public AudioClip[] bubblePopSounds;
+
+   
 
 
     [Header("VFX Prefabs")]
@@ -213,15 +212,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void PlayBubblePopAudio() // TODO: move this into a an audioManager script
-    {
-       
-            int randomIndex = Random.Range(0, bubblePopSounds.Length);
-            audioSource.pitch = Random.Range(0.75f, 1.25f);
-            audioSource.clip = bubblePopSounds[randomIndex];
-            audioSource.Play();
-        
-    } 
+    
 
     // this gets called when ever a bubble collides with the clearing zone
     public void HandleBubbleClear(Bubble bubble)

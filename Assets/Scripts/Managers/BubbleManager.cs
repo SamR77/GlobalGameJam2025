@@ -133,7 +133,7 @@ public class BubbleManager : MonoBehaviour
                 Destroy(leftmostBubble);
 
                 Instantiate(GameManager.Instance.VFXBubbleBurst, bubblePosition, Quaternion.identity);
-                GameManager.Instance.PlayBubblePopAudio();
+                AudioManager.Instance.PlayBubblePopAudio();
             }
         }
     }

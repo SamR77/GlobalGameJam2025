@@ -35,14 +35,15 @@ public class UIManager : MonoBehaviour
     public GameObject optionsMenuUI;
     public GameObject creditsMenuUI;
 
-    public void InstantiatePopupResults(Canvas resultCanvas, Vector3 burstPosition)
-    {
-        Instantiate(resultCanvas, burstPosition, Quaternion.identity);
-    }
+
 
     private void Awake()
     {
         Instance = this;        
+    }
+    public void InstantiatePopupResults(Canvas resultCanvas, Vector3 burstPosition)
+    {
+        Instantiate(resultCanvas, burstPosition, Quaternion.identity);
     }
 
     public void UpdateProgressBar(float HappynessAmount)
