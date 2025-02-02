@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public int missPenalty = -50;
 
     [Header("Reference to BabyAnimator")]
-    public Animator animator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
+    public Animator babyAnimator; // TODO: move to an AnimationManager script // Assign your Animator in the Inspector
     public GameObject tears; // TODO: move to an AnimationManager script
 
     [Header("VFX Prefabs")]
@@ -172,11 +172,41 @@ public class GameManager : MonoBehaviour
 
     void UpdateBabyAnimator() // TODO: Consider moving into it's own Manager Script.. although there is not much at the moment.. we may want to add more animations later
     {
-        if (animator != null)
-        {            
-            animator.SetFloat("HappyLevel", happinessPercentage);
+        if (babyAnimator != null)
+        {     
+            
+            // Start lerping the HappyLevel parameter
+            StartCoroutine(lerpBabyAnimator(babyAnimator.GetFloat("HappyLevel"), happinessPercentage));
+
+
         }
     }
+
+
+
+    private IEnumerator lerpBabyAnimator(float startValue, float targetValue)
+    {
+        float timeElapsed = 0f; // Time elapsed for lerping
+        float lerpDuration = 1.0f; // Duration of the lerp (in seconds)
+
+        while (timeElapsed < lerpDuration)
+        {
+            // Lerp between current and target HappyLevel value
+            float newValue = Mathf.Lerp(startValue, targetValue, timeElapsed / lerpDuration);
+            babyAnimator.SetFloat("HappyLevel", newValue);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the secondary progress bar ends exactly at the target value
+        babyAnimator.SetFloat("HappyLevel", targetValue);
+    }
+
+
+
+
+
+
 
     public void GameReset()
     {
@@ -246,11 +276,11 @@ public class GameManager : MonoBehaviour
             tears.SetActive(false);
         }
 
-        if(animator == null)
+        if(babyAnimator == null)
         {
             Debug.Log("Animator is null");
         }
-        else if (animator != null)
+        else if (babyAnimator != null)
         {
             UpdateBabyAnimator();
         }

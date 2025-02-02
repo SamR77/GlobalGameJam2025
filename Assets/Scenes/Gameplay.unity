@@ -2401,7 +2401,7 @@ MonoBehaviour:
   goodTimingAward: 50
   earlyLateTimingAward: 25
   missPenalty: -50
-  animator: {fileID: 1669121709}
+  babyAnimator: {fileID: 1669121709}
   tears: {fileID: 1942284945}
   VFXBubbleBurst: {fileID: 8552982063088189512, guid: 6ff6c98c8a48828418f727a5a46d5da4,
     type: 3}
