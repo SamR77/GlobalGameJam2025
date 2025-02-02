@@ -2386,7 +2386,7 @@ MonoBehaviour:
   uIManager: {fileID: 5458835976305549853}
   gameStateManager: {fileID: 247126392}
   bubbleManager: {fileID: 631844572}
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 700103846}
   bubbleStartingSpeed: 2
   bubbleStartingSpawnRate: 2
   bubbleSpeedChangeAmount: 0.1

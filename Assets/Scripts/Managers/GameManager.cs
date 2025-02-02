@@ -93,12 +93,7 @@ public class GameManager : MonoBehaviour
 
         happinessPoints = maxHappinessPoints / 2;
         happinessPercentage = happinessPoints / maxHappinessPoints;
-        UIManager.Instance.UpdateProgressBar(happinessPercentage);  
-        
-
-        
-
-
+        UIManager.Instance.UpdateProgressBar(happinessPercentage); 
     }
 
     void Update()
@@ -195,40 +190,70 @@ public class GameManager : MonoBehaviour
         bubbleSpeedChangeAmount = cachedBubbleSpeedChangeAmount;
         bubbleSpawnRateChangeAmount = cachedBubbleSpawnRateChangeAmount;
 
-        // Initialize all stat values in BubbleManager
-        BubbleManager.Instance.InitializeBubbleStats();
-
-        // Reset UI
-        UIManager.Instance.UpdateProgressBar(happinessPercentage);
-        tears.SetActive(false);
-
-        // Update baby animator
-        UpdateBabyAnimator();
-
-        // Clear all existing bubbles
-        for (int i = 0; i < BubbleManager.Instance.spawnLanes.Length; i++)
+        if(BubbleManager.Instance == null)
         {
-            foreach (GameObject bubble in BubbleManager.Instance.lanes[i].ToList())
+            Debug.Log("BubbleManager is null");
+        }
+        else if (BubbleManager.Instance != null)
+        {
+            // Initialize all stat values in BubbleManager
+            BubbleManager.Instance.InitializeBubbleStats();
+
+            // Clear all existing bubbles
+            if (BubbleManager.Instance.lanes != null)
             {
-                if (bubble != null)
+                for (int i = 0; i < BubbleManager.Instance.spawnLanes.Length; i++)
                 {
-                    Destroy(bubble);
+                    if (BubbleManager.Instance.lanes[i] != null)
+                    {
+                        foreach (GameObject bubble in BubbleManager.Instance.lanes[i].ToList())
+                        {
+                            if (bubble != null)
+                            {
+                                Destroy(bubble);
+                            }
+                        }
+                        BubbleManager.Instance.lanes[i].Clear();
+                    }
                 }
             }
-            BubbleManager.Instance.lanes[i].Clear();
+
+            // Reset bubble spawn count
+            BubbleManager.Instance.ResetSpawnCount();
         }
 
-        // Reset bubble spawn count and restart spawning
-        BubbleManager.Instance.ResetSpawnCount();  
         
-        // Clear all existing popups
-        UIManager.Instance.ClearResultsPopups();
+        if (UIManager.Instance == null)
+        {
+            Debug.Log("UIManager is null");
+        }
+        else if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateProgressBar(happinessPercentage);
+            UIManager.Instance.ClearResultsPopups();
+            UIManager.Instance.ClearBubbleVFX();
+        }
 
-        // Clear all existing bubbleVFX's
-        UIManager.Instance.ClearBubbleVFX();
+        // Update visual elements if available
+        
+        
+        if (tears == null)
+        {
+            Debug.Log("Tears is null");
+        }       
+        else if (tears != null)
+        {
+            tears.SetActive(false);
+        }
 
-
-
+        if(animator == null)
+        {
+            Debug.Log("Animator is null");
+        }
+        else if (animator != null)
+        {
+            UpdateBabyAnimator();
+        }
     }
 
     void OnEnable()

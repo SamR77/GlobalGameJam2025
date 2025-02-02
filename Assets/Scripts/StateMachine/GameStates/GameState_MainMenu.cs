@@ -14,10 +14,12 @@ public class GameState_MainMenu : IGameState
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         
-        GameManager.Instance.GameReset();
+        
 
         GameManager.Instance.uIManager.UIMainMenu();
         //GameManager.Instance.playerManager.player.SetActive(false);        
+
+        GameManager.Instance.GameReset();
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }
