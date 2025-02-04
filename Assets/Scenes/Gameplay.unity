@@ -438,15 +438,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1929,7 +1931,7 @@ PrefabInstance:
     - target: {fileID: 5610645119903708118, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1760
+      value: 1763
       objectReference: {fileID: 0}
     - target: {fileID: 5618082401576211303, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -2880,7 +2882,7 @@ PrefabInstance:
     - target: {fileID: 5610645119903708118, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1760
+      value: 1763
       objectReference: {fileID: 0}
     - target: {fileID: 5618082401576211303, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -3077,15 +3079,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -6012,7 +6016,7 @@ PrefabInstance:
     - target: {fileID: 5610645119903708118, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1760
+      value: 1763
       objectReference: {fileID: 0}
     - target: {fileID: 5618082401576211303, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -8526,7 +8530,7 @@ PrefabInstance:
     - target: {fileID: 5610645119903708118, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1800
+      value: 1803
       objectReference: {fileID: 0}
     - target: {fileID: 5618082401576211303, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
