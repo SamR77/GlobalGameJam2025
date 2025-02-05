@@ -53,6 +53,13 @@ public class GameManager : MonoBehaviour
     public float goodMinPercent = 35f;          // Min percent distance to get a "Good" 
     public float earlyLateMinPercent = 0f;      // Min percent distance to get an "Early or late" 
 
+    [Header("Counts of Popped Bubbles")]
+    [SerializeField] internal int countPerfectBubbles;
+    [SerializeField] internal int countGoodBubbles;
+    [SerializeField] internal int countEarlyLateBubbles;
+    [SerializeField] internal int countMissedBubbles;
+    [SerializeField] internal float timePlayed;
+
 
     // Private Variables
     private float happinessPoints;                        // stores the current gameplay score
@@ -61,7 +68,9 @@ public class GameManager : MonoBehaviour
     private float maxDistance;                  // The maximum distance of the score Zone (from edge to center)
 
     private Collider scoreZoneCollider;         // The score zone collider
-       
+
+
+
     private void Awake()
     {
         #region Singleton Pattern
@@ -120,6 +129,8 @@ public class GameManager : MonoBehaviour
         if (!isInScoreZone)
         {
             UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupMissed, bubblePosition);
+            countMissedBubbles += 1;
+            uIManager.UpdatePoppedBubbleCountUI();
             UpdateScore(missPenalty);
         }
         else
@@ -130,11 +141,15 @@ public class GameManager : MonoBehaviour
             if (percentage >= perfectMinPercent)
             {
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupPerfect, bubblePosition);
+                countPerfectBubbles += 1;
+                uIManager.UpdatePoppedBubbleCountUI();
                 UpdateScore(perfectTimingAward);
             }
             else if (percentage >= goodMinPercent)
             {
                 UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupGood, bubblePosition);
+                countGoodBubbles += 1;
+                uIManager.UpdatePoppedBubbleCountUI();
                 UpdateScore(goodTimingAward);
             }
             else
@@ -144,6 +159,8 @@ public class GameManager : MonoBehaviour
                 else
                     UIManager.Instance.InstantiatePopupResults(UIManager.Instance.popupEarly, bubblePosition);
 
+                countEarlyLateBubbles += 1;
+                uIManager.UpdatePoppedBubbleCountUI();
                 UpdateScore(earlyLateTimingAward);
             }
         }
@@ -200,16 +217,19 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
-
-
-
     public void GameReset()
     {
         // Reset core game stats
         happinessPoints = maxHappinessPoints / 2;
         happinessPercentage = happinessPoints / maxHappinessPoints;
+
+        // reset all bubble counts
+        countPerfectBubbles = 0;
+        countGoodBubbles = 0;
+        countEarlyLateBubbles = 0;
+        countMissedBubbles = 0;
+        timePlayed = 0;
+        uIManager.UpdatePoppedBubbleCountUI();
 
         // Reset bubble stats to cached values
         bubbleStartingSpeed = cachedBubbleStartingSpeed;

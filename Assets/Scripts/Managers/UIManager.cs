@@ -2,9 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
-using System;
+
+
 
 // Sam Robichaud 
 // NSCC Truro 2024
@@ -14,6 +13,10 @@ public class UIManager : MonoBehaviour
 {
     // Static instance property to provide global access
     public static UIManager Instance { get; private set; }
+
+    [Header("Popped Bubbles Total")]
+    public TMP_Text textPoppedTotal;      // Primary bar that updates immediately
+
 
 
     [Header("Progress Bars")]
@@ -37,15 +40,24 @@ public class UIManager : MonoBehaviour
     public GameObject optionsMenuUI;
     public GameObject creditsMenuUI;
 
-
+    private GameManager gameManager;
 
     private void Awake()
     {
-        Instance = this;        
+        Instance = this;
+        gameManager = GameManager.Instance;
     }
     public void InstantiatePopupResults(Canvas resultCanvas, Vector3 burstPosition)
     {
         Instantiate(resultCanvas, burstPosition, Quaternion.identity);
+    }
+
+    public void UpdatePoppedBubbleCountUI()
+    {
+        // only counts bubbles that were not missed
+        int totalPopped = (gameManager.countPerfectBubbles + gameManager.countGoodBubbles + gameManager.countEarlyLateBubbles);
+
+        textPoppedTotal.text = totalPopped.ToString();
     }
 
     public void UpdateProgressBar(float targetHappinessAmount)

@@ -8,13 +8,12 @@ public class Tween_ResultsPopAndFade : MonoBehaviour
     [Header("Scale Settings")]
     [SerializeField] private Vector3 originalScale;
     [SerializeField] private Vector3 scaleTo;
-    [SerializeField] private float scaleSpeed = 0.25f;
 
 
 
-    [Header("Fade Settings")]
-    [SerializeField] private float fadeDuration = 2.0f; // Time in seconds for the text to fade
-    [SerializeField] private float startDelay = 0.5f; // Optional delay before fading starts
+
+
+
 
     public CanvasGroup canvasGroup;
 
