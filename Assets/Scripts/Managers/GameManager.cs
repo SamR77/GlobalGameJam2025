@@ -22,11 +22,11 @@ public class GameManager : MonoBehaviour
     public AudioManager audioManager;
 
     [Header("Gameplay Settings")]
-    public float bubbleStartingSpeed = 2f;    
+    public float bubbleStartingSpeed = 3f;    
     [Tooltip("How frequent bubbles spawn, smaller number = more frequent spawns")] public float bubbleStartingSpawnRate = 2f;    
-    public float bubbleSpeedChangeAmount = 0.1f;    
+    public float bubbleSpeedChangeAmount = 0.25f;    
     public float bubbleSpawnRateChangeAmount = 0.2f;    
-    public int bubbleSpawnsBeforeDifficultyIncrease = 10;
+    public int bubbleSpawnsBeforeDifficultyIncrease = 5;
 
     // Cached values for resetting game
     public float cachedBubbleStartingSpeed;
@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
     public ParticleSystem VFXBubbleBurst;
 
     [Header("Tolerances for popping accuracy")]
-    public float perfectMinPercent = 90f;       // Min percent distance to get a "Perfect" 
-    public float goodMinPercent = 40f;          // Min percent distance to get a "Good" 
+    public float perfectMinPercent = 95f;       // Min percent distance to get a "Perfect" 
+    public float goodMinPercent = 35f;          // Min percent distance to get a "Good" 
     public float earlyLateMinPercent = 0f;      // Min percent distance to get an "Early or late" 
 
 
@@ -173,12 +173,9 @@ public class GameManager : MonoBehaviour
     void UpdateBabyAnimator() // TODO: Consider moving into it's own Manager Script.. although there is not much at the moment.. we may want to add more animations later
     {
         if (babyAnimator != null)
-        {     
-            
+        {                 
             // Start lerping the HappyLevel parameter
             StartCoroutine(lerpBabyAnimator(babyAnimator.GetFloat("HappyLevel"), happinessPercentage));
-
-
         }
     }
 
@@ -282,7 +279,12 @@ public class GameManager : MonoBehaviour
         }
         else if (babyAnimator != null)
         {
-            UpdateBabyAnimator();
+            happinessPoints = maxHappinessPoints / 2;
+            happinessPercentage = happinessPoints / maxHappinessPoints;
+
+            babyAnimator.SetFloat("HappyLevel", happinessPercentage);
+
+            //UpdateBabyAnimator();
         }
     }
 

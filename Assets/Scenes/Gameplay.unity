@@ -2721,11 +2721,11 @@ MonoBehaviour:
   gameStateManager: {fileID: 247126392}
   bubbleManager: {fileID: 631844572}
   audioManager: {fileID: 700103846}
-  bubbleStartingSpeed: 2
+  bubbleStartingSpeed: 3
   bubbleStartingSpawnRate: 2
-  bubbleSpeedChangeAmount: 0.1
+  bubbleSpeedChangeAmount: 0.2
   bubbleSpawnRateChangeAmount: 0.2
-  bubbleSpawnsBeforeDifficultyIncrease: 10
+  bubbleSpawnsBeforeDifficultyIncrease: 5
   cachedBubbleStartingSpeed: 0
   cachedBubbleStartingSpawnRate: 0
   cachedBubbleSpeedChangeAmount: 0
@@ -2739,8 +2739,8 @@ MonoBehaviour:
   tears: {fileID: 1942284945}
   VFXBubbleBurst: {fileID: 8552982063088189512, guid: 6ff6c98c8a48828418f727a5a46d5da4,
     type: 3}
-  perfectMinPercent: 90
-  goodMinPercent: 40
+  perfectMinPercent: 95
+  goodMinPercent: 35
   earlyLateMinPercent: 0
 --- !u!1 &832575517
 GameObject:
@@ -5671,7 +5671,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 6, z: 1}
+  m_Size: {x: 1.5, y: 6, z: 1}
   m_Center: {x: 1, y: -3, z: 0.5}
 --- !u!1 &1653799449
 GameObject:

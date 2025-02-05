@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7614812546591573708}
   - component: {fileID: 5669382817213693546}
   - component: {fileID: 8352365145294657103}
+  - component: {fileID: 7828888898214435572}
+  - component: {fileID: 1711787304708541379}
   m_Layer: 5
   m_Name: ResultPopupMissed
   m_TagString: ResultsPopup
@@ -102,6 +104,36 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &7828888898214435572
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310901566044430754}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1711787304708541379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310901566044430754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b0c170605ea7b48bab8d75727b3c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalScale: {x: 0, y: 0, z: 0}
+  scaleTo: {x: 0, y: 0, z: 0}
+  scaleSpeed: 0.25
+  fadeDuration: 2
+  startDelay: 0.5
+  canvasGroup: {fileID: 7828888898214435572}
 --- !u!1 &7889081094207733947
 GameObject:
   m_ObjectHideFlags: 0
