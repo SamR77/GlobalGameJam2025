@@ -16,13 +16,19 @@ public class GameState_GamePlay : IGameState
     public void EnterState(GameStateManager gameStateManager)
     {
         Time.timeScale = 1f;
+        GameManager.Instance.playTimerOn = true;
+
         Cursor.visible = false;
         GameManager.Instance.uIManager.UIGamePlay();
-        Actions.PauseEvent += OnPause;       
+             
 
 
-        GameManager.Instance.bubbleManager.StartSpawning(); // Add this line
-   
+        GameManager.Instance.bubbleManager.StartSpawning(); 
+
+
+        Actions.PauseEvent += OnPause;
+
+
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }
@@ -39,7 +45,11 @@ public class GameState_GamePlay : IGameState
 
     public void LateUpdateState(GameStateManager gameStateManager) { }
 
-    public void ExitState(GameStateManager gameStateManager) { Actions.PauseEvent -= OnPause; }
+    public void ExitState(GameStateManager gameStateManager) 
+    {
+        GameManager.Instance.playTimerOn = false;
+        Actions.PauseEvent -= OnPause;     
+    }
 
 
 

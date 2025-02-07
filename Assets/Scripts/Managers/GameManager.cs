@@ -69,7 +69,8 @@ public class GameManager : MonoBehaviour
 
     private Collider scoreZoneCollider;         // The score zone collider
 
-
+    public float playTime;
+    public bool playTimerOn = false;
 
     private void Awake()
     {
@@ -121,7 +122,19 @@ public class GameManager : MonoBehaviour
         {
             tears.SetActive(false);
         }
+
+        HandlePlayTimer();
+
     }
+
+    private void HandlePlayTimer()
+    {
+        if (playTimerOn == true)
+        {
+            playTime += Time.deltaTime;
+            UIManager.Instance.UpdatePlayTimeUI(playTime);
+        }
+    }   
 
 
     public void CalculateScore(Vector3 bubblePosition, bool isInScoreZone)
@@ -230,6 +243,9 @@ public class GameManager : MonoBehaviour
         countMissedBubbles = 0;
         timePlayed = 0;
         uIManager.UpdatePoppedBubbleCountUI();
+
+        // Reset the PlayTimer
+        playTime = 0;
 
         // Reset bubble stats to cached values
         bubbleStartingSpeed = cachedBubbleStartingSpeed;
