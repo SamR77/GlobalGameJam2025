@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System;
 
 
 
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Popped Bubbles Total")]
     public TMP_Text textPoppedTotal;      // Primary bar that updates immediately
-
+    public TMP_Text textplayTimer;    // Secondary bar that lerps
 
 
     [Header("Progress Bars")]
@@ -169,5 +170,16 @@ public class UIManager : MonoBehaviour
             Destroy(popup);
         }
 
+    }
+
+    internal void UpdatePlayTimeUI(float playTime)
+    {
+        TimeSpan time = TimeSpan.FromSeconds(playTime);
+
+        int minutes = time.Minutes;
+        int seconds = time.Seconds;
+        int centiseconds = time.Milliseconds / 10;
+
+        textplayTimer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, centiseconds);
     }
 }
