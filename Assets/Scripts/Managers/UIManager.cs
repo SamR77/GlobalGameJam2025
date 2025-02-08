@@ -25,6 +25,17 @@ public class UIManager : MonoBehaviour
     public Slider secondaryHappinessBar;    // Secondary bar that lerps
 
 
+    [Header("Game Over Reults UI")]
+    public TMP_Text textResultsTotal;
+    public TMP_Text textResultsPerfect;
+    public TMP_Text textResultsGood;
+    public TMP_Text textResultsEarlyLate;
+    public TMP_Text textResultsTimePlayed;
+    public TMP_Text textResultsMissed;
+
+
+
+
     [Header("Result Popup Messages")]
     public Canvas popupMissed;
     public Canvas popupPerfect;
@@ -43,6 +54,9 @@ public class UIManager : MonoBehaviour
 
     private GameManager gameManager;
 
+    private string timePlayed;
+
+
     private void Awake()
     {
         Instance = this;
@@ -53,7 +67,7 @@ public class UIManager : MonoBehaviour
         Instantiate(resultCanvas, burstPosition, Quaternion.identity);
     }
 
-    public void UpdatePoppedBubbleCountUI()
+    public void UpdatePoppedBubbleCountUI()  // count on Gameplay UI
     {
         // only counts bubbles that were not missed
         int totalPopped = (gameManager.countPerfectBubbles + gameManager.countGoodBubbles + gameManager.countEarlyLateBubbles);
@@ -63,7 +77,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateProgressBar(float targetHappinessAmount)
     {
-        
+
 
         if (primaryHappinessBar != null)
         {
@@ -180,6 +194,25 @@ public class UIManager : MonoBehaviour
         int seconds = time.Seconds;
         int centiseconds = time.Milliseconds / 10;
 
-        textplayTimer.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, centiseconds);
+        timePlayed = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, centiseconds);
+        gameManager.timePlayed = timePlayed;
+        textplayTimer.text = timePlayed;
     }
+
+    // This will be called in the enter method of GameState_GameOver
+    public void UpdateGameOverResultsUI()
+    {
+        // only counts bubbles that were not missed
+        int totalPopped = (gameManager.countPerfectBubbles + gameManager.countGoodBubbles + gameManager.countEarlyLateBubbles);
+       
+        textResultsTotal.text = totalPopped.ToString();
+
+        textResultsPerfect.text = gameManager.countPerfectBubbles.ToString();
+        textResultsGood.text = gameManager.countGoodBubbles.ToString();
+        textResultsEarlyLate.text = gameManager.countEarlyLateBubbles.ToString();
+        textResultsTimePlayed.text = timePlayed;
+        textResultsMissed.text = gameManager.countMissedBubbles.ToString();
+    }
+
+
 }

@@ -58,12 +58,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] internal int countGoodBubbles;
     [SerializeField] internal int countEarlyLateBubbles;
     [SerializeField] internal int countMissedBubbles;
-    [SerializeField] internal float timePlayed;
+    [SerializeField] internal string timePlayed;
 
 
     // Private Variables
-    private float happinessPoints;                        // stores the current gameplay score
-    private float happinessPercentage;          // stores the current gameplay score as a percentage of the max score
+    public float happinessPoints;                        // stores the current gameplay score
+    public float happinessPercentage;          // stores the current gameplay score as a percentage of the max score
     private Vector3 scoreZoneCenter;            // The very center of the score Zone
     private float maxDistance;                  // The maximum distance of the score Zone (from edge to center)
 
@@ -241,7 +241,7 @@ public class GameManager : MonoBehaviour
         countGoodBubbles = 0;
         countEarlyLateBubbles = 0;
         countMissedBubbles = 0;
-        timePlayed = 0;
+        timePlayed = "";
         uIManager.UpdatePoppedBubbleCountUI();
 
         // Reset the PlayTimer
@@ -294,11 +294,10 @@ public class GameManager : MonoBehaviour
         {
             UIManager.Instance.UpdateProgressBar(happinessPercentage);
             UIManager.Instance.ClearResultsPopups();
-            UIManager.Instance.ClearBubbleVFX();
+            UIManager.Instance.ClearBubbleVFX();  // this is causing issues on reset
         }
 
-        // Update visual elements if available
-        
+        // Update visual elements if available        
         
         if (tears == null)
         {
@@ -315,12 +314,12 @@ public class GameManager : MonoBehaviour
         }
         else if (babyAnimator != null)
         {
-            happinessPoints = maxHappinessPoints / 2;
-            happinessPercentage = happinessPoints / maxHappinessPoints;
+            //happinessPoints = maxHappinessPoints / 2;
+            //happinessPercentage = happinessPoints / maxHappinessPoints;
 
+            Debug.Log(happinessPercentage);
             babyAnimator.SetFloat("HappyLevel", happinessPercentage);
-
-            //UpdateBabyAnimator();
+                       
         }
     }
 

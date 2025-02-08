@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class Tween_ResultsMissShake : MonoBehaviour
 {        
@@ -18,7 +19,12 @@ public class Tween_ResultsMissShake : MonoBehaviour
         originalScale = transform.localScale;
         scaleTo = originalScale * 2.0f;
 
-        var textSequence = DOTween.Sequence()
+
+        
+
+            var textSequence = DOTween.Sequence()
+
+            
             .Append(transform.DOScale(0.75f, 0))
             .Join(canvasGroup.DOFade(0, 0))  // Set to invisible
 
@@ -30,9 +36,10 @@ public class Tween_ResultsMissShake : MonoBehaviour
 
             .Append(canvasGroup.DOFade(0f, 4.0f)).SetEase(Ease.InSine)  // Fade out
             .Join(transform.DOScale(0f, 4.0f).SetEase(Ease.InSine))  // Pop-in effect
-
-            ;
-            //.OnComplete(() => Destroy(gameObject)); 
+            .OnComplete(() => { });
+                //.OnComplete(() => Destroy(gameObject)); 
+            
+            textSequence.Kill(); //Kill the sequence.
     }
 
 

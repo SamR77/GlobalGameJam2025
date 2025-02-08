@@ -19,7 +19,7 @@ public class GameState_MainMenu : IGameState
         GameManager.Instance.uIManager.UIMainMenu();
         //GameManager.Instance.playerManager.player.SetActive(false);        
 
-        GameManager.Instance.GameReset();
+        
     }
 
     public void FixedUpdateState(GameStateManager gameStateManager) { }

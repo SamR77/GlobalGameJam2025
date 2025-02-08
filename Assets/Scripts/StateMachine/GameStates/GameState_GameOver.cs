@@ -15,6 +15,7 @@ public class GameState_GameOver : IGameState
         Cursor.lockState = CursorLockMode.Confined;
 
         GameManager.Instance.uIManager.UIGameOver();
+        GameManager.Instance.uIManager.UpdateGameOverResultsUI();
     }
 
     void IGameState.FixedUpdateState(GameStateManager gameStateManager)
@@ -34,7 +35,7 @@ public class GameState_GameOver : IGameState
 
     void IGameState.ExitState(GameStateManager gameStateManager)
     {
-
+        
     }
 
 }

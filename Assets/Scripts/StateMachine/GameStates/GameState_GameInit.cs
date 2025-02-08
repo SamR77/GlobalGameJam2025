@@ -12,13 +12,14 @@ public class GameState_GameInit : IGameState
 
     public void EnterState(GameStateManager gameStateManager)
     {
-        Cursor.visible = false;        
+        Cursor.visible = false;
 
         // Enable all UI Panels, activates them so any scripts can get references to them if needed, each other state will disable them as needed
         GameManager.Instance.uIManager.EnableAllUIPanels();
 
         // Reset the game
         GameManager.Instance.GameReset();
+
 
         // Switch to Gameplay State
         GameManager.Instance.gameStateManager.SwitchToState(new GameState_GamePlay() );
@@ -33,6 +34,8 @@ public class GameState_GameInit : IGameState
     {
         // Disable all UI Panels
         GameManager.Instance.uIManager.DisableAllUIPanels();
+
+
     }
 
 }
