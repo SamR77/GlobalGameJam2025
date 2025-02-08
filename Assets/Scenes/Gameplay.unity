@@ -658,14 +658,14 @@ RectTransform:
   m_GameObject: {fileID: 101197761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1355845275882673351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.039}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101197763
@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6666667, g: 0.76470596, b: 0.73333335, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2256,7 +2256,7 @@ PrefabInstance:
     - target: {fileID: 3479781799352586430, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -14.6
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 4424584650117119429, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -2307,6 +2307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140692188006480869, guid: e43d8567fab4a8a4790b91acc610ebba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5164663678816330337, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -4038,7 +4043,7 @@ PrefabInstance:
     - target: {fileID: 3479781799352586430, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -14.6
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 4424584650117119429, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -4089,6 +4094,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140692188006480869, guid: e43d8567fab4a8a4790b91acc610ebba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5164663678816330337, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -6449,14 +6459,14 @@ RectTransform:
   m_GameObject: {fileID: 1214132349}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 837526770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.034}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214132351
@@ -6472,7 +6482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.62436295, g: 0.46635816, b: 0.754717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6607,14 +6617,14 @@ RectTransform:
   m_GameObject: {fileID: 1383742742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 539859442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.023}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1383742744
@@ -6630,7 +6640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.882353, g: 0.69411767, b: 0.86274517, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6787,7 +6797,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 44.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -6802,7 +6812,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30
+  field of view: 30.000002
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -8810,6 +8820,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 64d3f0ccd20048546a93a719006e5103, type: 2}
     - target: {fileID: -3597795370574015320, guid: d264ea08c65d4ff4bbda767b643e9990,
         type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3597795370574015320, guid: d264ea08c65d4ff4bbda767b643e9990,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 64d3f0ccd20048546a93a719006e5103, type: 2}
@@ -9565,7 +9580,7 @@ PrefabInstance:
     - target: {fileID: 3479781799352586430, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -14.6
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 4424584650117119429, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -9616,6 +9631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140692188006480869, guid: e43d8567fab4a8a4790b91acc610ebba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5164663678816330337, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -11204,7 +11224,7 @@ RectTransform:
   m_GameObject: {fileID: 2077940687}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1880185262}
@@ -11227,7 +11247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6039216, g: 0.7411765, b: 0.8078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11594,7 +11614,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c1ef1cb4fae77954b9721205635384bb, type: 2}
+      objectReference: {fileID: 2100000, guid: 8e67f5ac7a5447c4d8ef20b7fd57e907, type: 2}
     - target: {fileID: 6360966930680350467, guid: 0549e15db3b7725408976277c06c0baa,
         type: 3}
       propertyPath: m_IsActive
@@ -12427,7 +12447,7 @@ PrefabInstance:
     - target: {fileID: 3479781799352586430, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -14.6
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 4424584650117119429, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}
@@ -12478,6 +12498,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140692188006480869, guid: e43d8567fab4a8a4790b91acc610ebba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5164663678816330337, guid: e43d8567fab4a8a4790b91acc610ebba,
         type: 3}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1309478764338152905}
   - component: {fileID: -4954446622037574329}
   - component: {fileID: 725081424978283022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,6 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b89028f3c8a024380e3b205f458cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  bubbleSpeed: 1
   isInBurstZone: 0
-  bubbleGameplayManager: {fileID: 0}
