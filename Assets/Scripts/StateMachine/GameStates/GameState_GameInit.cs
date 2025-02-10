@@ -17,8 +17,7 @@ public class GameState_GameInit : IGameState
         // Enable all UI Panels, activates them so any scripts can get references to them if needed, each other state will disable them as needed
         GameManager.Instance.uIManager.EnableAllUIPanels();
 
-        // Reset the game
-        GameManager.Instance.GameReset();
+        
 
 
         // Switch to Gameplay State
@@ -35,6 +34,8 @@ public class GameState_GameInit : IGameState
         // Disable all UI Panels
         GameManager.Instance.uIManager.DisableAllUIPanels();
 
+        // Reset the game
+        GameManager.Instance.GameReset();
 
     }
 

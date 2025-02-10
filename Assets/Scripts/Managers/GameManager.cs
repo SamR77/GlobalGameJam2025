@@ -232,6 +232,9 @@ public class GameManager : MonoBehaviour
 
     public void GameReset()
     {
+
+        StopAllCoroutines(); // Stop any running animation coroutines
+
         // Reset core game stats
         happinessPoints = maxHappinessPoints / 2;
         happinessPercentage = happinessPoints / maxHappinessPoints;
@@ -317,9 +320,10 @@ public class GameManager : MonoBehaviour
             //happinessPoints = maxHappinessPoints / 2;
             //happinessPercentage = happinessPoints / maxHappinessPoints;
 
-            Debug.Log(happinessPercentage);
+            Debug.Log("Happy percentage set to " + happinessPercentage);
+            Debug.Log("Animator Happy Level set to " + babyAnimator.GetFloat("HappyLevel"));
             babyAnimator.SetFloat("HappyLevel", happinessPercentage);
-                       
+            Debug.Log("Animator Happy Level set to " + babyAnimator.GetFloat("HappyLevel"));
         }
     }
 
