@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -232,7 +233,8 @@ public class GameManager : MonoBehaviour
 
     public void GameReset()
     {
-
+        
+        DOTween.KillAll(); // Kill all active DOTweens before clearing UI
         StopAllCoroutines(); // Stop any running animation coroutines
 
         // Reset core game stats
