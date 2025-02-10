@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting;
 
 public class Tween_ResultsMissShake : MonoBehaviour
 {        
@@ -19,12 +18,13 @@ public class Tween_ResultsMissShake : MonoBehaviour
         originalScale = transform.localScale;
         scaleTo = originalScale * 2.0f;
 
+        // Declare the sequence variable first
+        Sequence textSequence = null;
 
-        
 
-            var textSequence = DOTween.Sequence()
+        // Create and store the sequence in a variable
+        textSequence = DOTween.Sequence()
 
-            
             .Append(transform.DOScale(0.75f, 0))
             .Join(canvasGroup.DOFade(0, 0))  // Set to invisible
 
@@ -32,14 +32,20 @@ public class Tween_ResultsMissShake : MonoBehaviour
             .Join(canvasGroup.DOFade(1.0f, 0.01f))  // Fade in
             .Join(transform.DOShakePosition(0.5f, 0.075f, 100, 90, false, true).SetEase(Ease.InSine)) // Shake effect
 
-            .AppendInterval(0.25f)  // Wait for 1 second
+            .AppendInterval(0.25f)  // Wait for 0.25 seconds
 
-            .Append(canvasGroup.DOFade(0f, 4.0f)).SetEase(Ease.InSine)  // Fade out
-            .Join(transform.DOScale(0f, 4.0f).SetEase(Ease.InSine))  // Pop-in effect
-            .OnComplete(() => { });
-                //.OnComplete(() => Destroy(gameObject)); 
-            
-            textSequence.Kill(); //Kill the sequence.
+            .Append(canvasGroup.DOFade(0f, 4.0f).SetEase(Ease.InSine))  // Fade out
+            .Join(transform.DOScale(0f, 4.0f).SetEase(Ease.InSine))  // Scale down
+
+            // Ensure proper cleanup
+            .OnComplete(() =>
+            {
+                textSequence.Kill();  // Kill the sequence
+                Destroy(gameObject);  // Destroy the GameObject
+            });
+
+
+
     }
 
 

@@ -18,9 +18,12 @@ public class Tween_ResultsPopAndFade : MonoBehaviour
 
         originalScale = transform.localScale;
         scaleTo = originalScale * 2.0f;
-        
-        
-            var textSequence = DOTween.Sequence()
+
+        // Declare the sequence variable first
+        Sequence textSequence = null;
+
+        // Assign the sequence
+        textSequence = DOTween.Sequence()     
                             
                 .Append(transform.DOScale(0.75f, 0))
 
@@ -31,10 +34,14 @@ public class Tween_ResultsPopAndFade : MonoBehaviour
                 .Append(canvasGroup.DOFade(0f, 4.0f)).SetEase(Ease.InSine)  // Fade out
                 .Join(transform.DOScale(0f, 4.0f).SetEase(Ease.InSine))  // Pop-in effect
 
-                .OnComplete(() => { });
-        //.OnComplete(() => Destroy(gameObject)); 
+            // Ensure proper cleanup
+            .OnComplete(() =>
+            {
+                textSequence.Kill();  // Kill the sequence
+                Destroy(gameObject);  // Destroy the GameObject
+            });
 
-        textSequence.Kill(); //Kill the sequence.
+
         
     }
 }
